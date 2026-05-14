@@ -1,0 +1,12 @@
+<nav class="nav-pill" aria-label="Main navigation">
+  @for (link of links; track link.route) {
+    <a
+      [routerLink]="link.route"
+      routerLinkActive="active"
+      #rla="routerLinkActive"
+      [routerLinkActiveOptions]="{ exact: link.exact }"
+      [attr.aria-current]="rla.isActive ? 'page' : null"
+      class="nav-link"
+    >{{ link.label }}</a>
+  }
+</nav>

@@ -1,0 +1,26 @@
+<header class="header-container">
+  <span class="md:hidden header-text text-xl">Rodrigo U.</span>
+  <span class="hidden md:inline header-text">Rodrigo Umaña <span class="text-muted hidden lg:inline font-label text-lg ml-[0.5dvw]">- portfolio</span></span>
+
+  <app-nav class="hidden lg:block w-[85%] justify-self-center"></app-nav>
+
+  <div class="hidden lg:flex gap-4 items-center justify-self-end">
+    <span class="text-base font-label text-muted select-none">OPEN TO OPPORTUNITIES</span>
+    <a href="cv.pdf" download aria-label="Download CV as PDF" class="cv-button">
+      CV
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-4" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+      </svg>
+    </a>
+  </div>
+
+  <button
+    class="flex flex-col gap-2.5 items-end lg:hidden h-full select-none"
+    [attr.aria-label]="isMenuOpen() ? 'Close menu' : 'Open menu'"
+    [attr.aria-expanded]="isMenuOpen()"
+    (click)="toggleMenu()"
+  >
+    <span class="block h-[1.5px] w-6 bg-primary"></span>
+    <span class="block h-[1.5px] w-4 bg-primary"></span>
+  </button>
+</header>

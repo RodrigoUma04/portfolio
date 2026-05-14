@@ -1,1 +1,64 @@
 @import 'tailwindcss';
+
+:root {
+  --paper: #f0eee9;
+  --primary: #161412;
+  --muted: #5e5850;
+  --highlight: #114ca8;
+  --grey: #d8d2c5;
+  --hover: #ededed;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-primary: var(--primary);
+  --color-muted: var(--muted);
+  --color-highlight: var(--highlight);
+  --color-grey: var(--grey);
+  --color-hover: var(--hover);
+  --font-header: "Instrument Serif", serif;
+  --font-label: "JetBrains Mono", monospace;
+  --font-body: "Inter", sans-serif;
+}
+
+@layer base {
+  html, body {
+    @apply bg-paper text-primary;
+  }
+}
+
+@layer components {
+  .header-container {
+    @apply flex justify-between items-center
+    w-full px-[5dvw] lg:px-[3dvw] py-[2dvh]
+    lg:grid lg:grid-cols-3;
+  }
+
+  .header-text {
+    @apply text-primary justify-self-start text-3xl select-none font-header;
+  }
+
+  .nav-pill {
+    @apply
+    flex items-center justify-around gap-1
+    bg-white rounded-3xl p-1 h-[5dvh]
+    border border-grey;
+  }
+
+  .nav-link {
+    @apply font-label text-primary w-full h-full text-center text-lg content-center select-none transition-all duration-200 rounded-3xl;
+
+    &.active {
+      @apply
+      bg-primary text-white;
+    }
+
+    &:hover:not(.active) {
+      @apply bg-hover;
+    }
+  }
+
+  .cv-button {
+    @apply flex items-center gap-2 bg-primary text-white rounded-3xl px-5 py-2 font-body transition-transform duration-100 active:scale-95 select-none;
+  }
+}
