@@ -15,12 +15,14 @@
   </div>
 
   <button
-    class="flex flex-col gap-2.5 items-end lg:hidden h-full select-none"
+    class="burger-btn lg:hidden"
     [attr.aria-label]="isMenuOpen() ? 'Close menu' : 'Open menu'"
     [attr.aria-expanded]="isMenuOpen()"
     (click)="toggleMenu()"
   >
-    <span class="block h-[1.5px] w-6 bg-primary"></span>
-    <span class="block h-[1.5px] w-4 bg-primary"></span>
+    <span class="burger-bar burger-bar-top" [class.open]="isMenuOpen()"></span>
+    <span class="burger-bar burger-bar-bottom" [class.open]="isMenuOpen()"></span>
   </button>
 </header>
+
+<app-mobile-nav [isOpen]="isMenuOpen()" (closed)="closeMenu()" />

@@ -31,7 +31,8 @@
   .header-container {
     @apply flex justify-between items-center
     w-full px-[5dvw] lg:px-[3dvw] py-[2dvh]
-    lg:grid lg:grid-cols-3;
+    lg:grid lg:grid-cols-3
+    relative z-[51] bg-paper;
   }
 
   .header-text {
@@ -60,5 +61,42 @@
 
   .cv-button {
     @apply flex items-center gap-2 bg-primary text-white rounded-3xl px-5 py-2 font-body transition-transform duration-100 active:scale-95 select-none;
+  }
+
+  .burger-btn {
+    @apply flex flex-col gap-2.5 items-end h-full select-none cursor-pointer;
+  }
+
+  .burger-bar {
+    @apply block h-[1.5px] bg-primary transition-all duration-300 origin-center transform-gpu;
+  }
+
+  .burger-bar-top {
+    @apply w-6;
+
+    &.open {
+      @apply translate-y-1.25 rotate-45;
+    }
+  }
+
+  .burger-bar-bottom {
+    @apply w-4;
+
+    &.open {
+      @apply w-6 translate-y-[-5.5px] -rotate-45;
+    }
+  }
+
+  .mobile-nav-link {
+    @apply font-label text-primary text-4xl md:text-5xl select-none tracking-widest
+           transition-colors duration-200;
+
+    &:hover {
+      @apply text-muted;
+    }
+
+    &.mobile-nav-link--active {
+      @apply text-highlight;
+    }
   }
 }
