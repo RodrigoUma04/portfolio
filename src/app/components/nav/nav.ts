@@ -10,21 +10,22 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import gsap from 'gsap';
 import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe],
   templateUrl: './nav.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Nav implements AfterViewInit {
   protected readonly links = [
-    { label: 'HOME', route: '/home', exact: true },
-    { label: 'WORK', route: '/work', exact: false },
-    { label: 'ABOUT', route: '/about', exact: false },
-    { label: 'CONTACT', route: '/contact', exact: false },
+    { label: 'nav.home', route: '/home', exact: true },
+    { label: 'nav.work', route: '/work', exact: false },
+    { label: 'nav.about', route: '/about', exact: false },
+    { label: 'nav.contact', route: '/contact', exact: false },
   ];
 
   private readonly pillRef = viewChild.required<ElementRef<HTMLElement>>('pill');
@@ -62,8 +63,8 @@ export class Nav implements AfterViewInit {
     const navRect = nav.getBoundingClientRect();
     const linkRect = el.getBoundingClientRect();
     const navStyle = getComputedStyle(nav);
-    const borderLeft = parseFloat(navStyle.borderLeftWidth);
-    const borderTop = parseFloat(navStyle.borderTopWidth);
+    const borderLeft = Number.parseFloat(navStyle.borderLeftWidth);
+    const borderTop = Number.parseFloat(navStyle.borderTopWidth);
 
     const pillProps = {
       autoAlpha: 1,

@@ -1,24 +1,23 @@
 <div #heroRef class="py-[5dvh] px-[5dvw] flex flex-col lg:flex-row lg:justify-between lg:items-center gap-5 select-none">
-  <span class="text-8xl lg:text-9xl font-header text-primary">Let's <span class="text-highlight italic">talk.</span></span>
-  <span class="lg:hidden text-xl font-label text-primary">About <span class="text-highlight italic">roles</span>, projects, or anything Angular & Spring.</span>
-  <span class="hidden lg:inline text-xl w-full lg:w-[40%] font-label text-primary">About <span class="text-highlight italic">roles</span>, projects, or anything that needs both an Angular & a Spring side.</span>
+  <span class="text-8xl font-header text-primary">{{ 'contact.hero_before' | translate }}<span class="text-highlight italic">{{ 'contact.hero_after' | translate }}</span></span>
+  <span class="text-xl font-label text-primary lg:w-[40%]">{{ 'contact.hero_subtitle' | translate }}</span>
 </div>
 
 <div #emailCardRef class="mx-[5dvw] mb-[5dvh] border border-grey rounded-lg p-5 bg-white flex flex-col lg:flex-row justify-between gap-6 lg:gap-0 select-none">
   <div class="flex flex-col gap-5">
-    <span class="block text-muted font-label">PRIMARY - EMAIL</span>
-    <span class="block self-center text-primary text-4xl font-body">talk&#64;rodruma<span class="text-highlight">.com</span></span>
+    <span class="block text-muted font-label">{{ 'contact.email_label' | translate }}</span>
+    <span class="block self-center text-4xl font-body"><span class="text-highlight">{{ siteSettings()?.email?.split('@')![0] }}</span><span class="text-primary">&#64;{{ siteSettings()?.email?.split('@')![1] }}</span></span>
     <span class="flex self-center items-center gap-4 text-sm lg:text-base font-label text-primary select-none">
-        <span class="relative flex items-center justify-center size-3">
-          <span class="absolute inline-flex size-full rounded-full bg-highlight opacity-40 animate-ping [animation-duration:2s]"></span>
-          <span class="relative inline-flex rounded-full size-2 bg-highlight"></span>
-        </span>
-      <span>Usually replies <span class="font-bold">within a day</span></span>
+      <span class="relative flex items-center justify-center size-3">
+        <span class="absolute inline-flex size-full rounded-full bg-highlight opacity-40 animate-ping [animation-duration:2s]"></span>
+        <span class="relative inline-flex rounded-full size-2 bg-highlight"></span>
+      </span>
+      <span>{{ 'contact.replies_before' | translate }} <span class="font-bold">{{ 'contact.replies_within' | translate }}</span></span>
     </span>
   </div>
   <div class="flex flex-col gap-5 lg:items-center lg:justify-center">
     <button (click)="copyEmail()" class="cv-button cursor-pointer justify-center">
-      {{ copied() ? 'Copied!' : 'Copy email' }}
+      {{ (copied() ? 'contact.copied' : 'contact.copy_email') | translate }}
       @if (copied()) {
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-4" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
@@ -30,8 +29,8 @@
       }
     </button>
 
-    <a href="mailto:talk@rodruma.com" class="mail-button" draggable="false">
-      Open in mail app
+    <a [href]="'mailto:' + (siteSettings()?.email ?? '')" class="mail-button" draggable="false">
+      {{ 'contact.open_in_mail' | translate }}
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-4" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
       </svg>
@@ -43,85 +42,85 @@
 <div #formSectionRef class="mx-[5dvw] pb-[5dvh] grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12 select-none">
   <div>
     <div class="flex justify-between items-center text-muted font-label text-xs pb-4 border-b border-grey">
-      <span>OR — SEND A MESSAGE</span>
+      <span>{{ 'contact.or_send' | translate }}</span>
       <span>powered by Web3Forms</span>
     </div>
 
     @if (submitSuccess()) {
       <div class="py-[5dvh] font-body text-xl text-primary">
-        Message sent. I'll get back to you soon.
+        {{ 'contact.form.success' | translate }}
       </div>
     } @else {
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
         <div class="grid grid-cols-1 sm:grid-cols-[120px_1fr] items-start border-b border-grey py-5 gap-2 sm:gap-4">
-          <label for="contact-name" class="text-muted font-label text-xs uppercase">Your name</label>
+          <label for="contact-name" class="text-muted font-label text-xs uppercase">{{ 'contact.form.name_label' | translate }}</label>
           <div class="flex flex-col">
-            <input id="contact-name" type="text" formControlName="name" placeholder="Your name"
+            <input id="contact-name" type="text" formControlName="name" [placeholder]="'contact.form.name_placeholder' | translate"
               class="bg-transparent outline-none font-body text-xl text-primary placeholder:text-muted w-full">
             @if (form.get('name')?.invalid && form.get('name')?.touched) {
-              <span class="text-xs text-red-700 font-label mt-1">Name is required.</span>
+              <span class="text-xs text-red-700 font-label mt-1">{{ 'contact.form.validation.name_required' | translate }}</span>
             }
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-[120px_1fr] items-start border-b border-grey py-5 gap-2 sm:gap-4">
-          <label for="contact-email" class="text-muted font-label text-xs uppercase">Email</label>
+          <label for="contact-email" class="text-muted font-label text-xs uppercase">{{ 'contact.form.email_label' | translate }}</label>
           <div class="flex flex-col">
-            <input id="contact-email" type="email" formControlName="email" placeholder="you@example.com"
+            <input id="contact-email" type="email" formControlName="email" [placeholder]="'contact.form.email_placeholder' | translate"
               class="bg-transparent outline-none font-body text-xl text-primary placeholder:text-muted w-full">
             @if (form.get('email')?.invalid && form.get('email')?.touched) {
               <span class="text-xs text-red-700 font-label mt-1">
-                {{ form.get('email')?.hasError('required') ? 'Email is required.' : 'Enter a valid email.' }}
+                {{ (form.get('email')?.hasError('required') ? 'contact.form.validation.email_required' : 'contact.form.validation.email_invalid') | translate }}
               </span>
             }
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-[120px_1fr] items-start border-b border-grey py-5 gap-2 sm:gap-4">
-          <span class="text-muted font-label text-xs uppercase">You are a</span>
+          <span class="text-muted font-label text-xs uppercase">{{ 'contact.form.role_label' | translate }}</span>
           <div class="flex flex-col">
             <div class="flex items-center gap-3 font-body text-xl select-none">
               <button type="button" (click)="setRole('recruiter', $event)"
                 class="transition-colors duration-150"
                 [class.font-bold]="roleType() === 'recruiter'"
                 [class.text-primary]="!roleType() || roleType() === 'recruiter'"
-                [class.text-muted]="!!roleType() && roleType() !== 'recruiter'">Recruiter</button>
+                [class.text-muted]="!!roleType() && roleType() !== 'recruiter'">{{ 'contact.form.recruiter' | translate }}</button>
               <span class="text-muted">·</span>
               <button type="button" (click)="setRole('engineer', $event)"
                 class="transition-colors duration-150"
                 [class.font-bold]="roleType() === 'engineer'"
                 [class.text-primary]="!roleType() || roleType() === 'engineer'"
-                [class.text-muted]="!!roleType() && roleType() !== 'engineer'">Engineer</button>
+                [class.text-muted]="!!roleType() && roleType() !== 'engineer'">{{ 'contact.form.engineer' | translate }}</button>
               <span class="text-muted">·</span>
               <button type="button" (click)="setRole('other', $event)"
                 class="transition-colors duration-150"
                 [class.font-bold]="roleType() === 'other'"
                 [class.text-primary]="!roleType() || roleType() === 'other'"
-                [class.text-muted]="!!roleType() && roleType() !== 'other'">Other</button>
+                [class.text-muted]="!!roleType() && roleType() !== 'other'">{{ 'contact.form.other' | translate }}</button>
             </div>
             @if (form.get('role')?.invalid && form.get('role')?.touched) {
-              <span class="text-xs text-red-700 font-label mt-1">Please select a role.</span>
+              <span class="text-xs text-red-700 font-label mt-1">{{ 'contact.form.validation.role_required' | translate }}</span>
             }
           </div>
         </div>
 
         <div class="border-b border-grey py-5">
-          <label for="contact-message" class="text-muted font-label text-xs uppercase block mb-4">Message</label>
+          <label for="contact-message" class="text-muted font-label text-xs uppercase block mb-4">{{ 'contact.form.message_label' | translate }}</label>
           <textarea id="contact-message" formControlName="message" rows="4"
-            placeholder="A few lines about the role, the team, and what you're trying to build."
+            [placeholder]="'contact.form.message_placeholder' | translate"
             class="bg-transparent outline-none font-body text-xl text-primary placeholder:text-muted w-full resize-none"></textarea>
           @if (form.get('message')?.invalid && form.get('message')?.touched) {
-            <span class="text-xs text-red-700 font-label mt-1">Message is required.</span>
+            <span class="text-xs text-red-700 font-label mt-1">{{ 'contact.form.validation.message_required' | translate }}</span>
           }
         </div>
 
         <div class="flex justify-center lg:justify-end items-center gap-4 pt-5">
           @if (submitError()) {
-            <span class="text-xs text-muted font-label">{{ submitError() }}</span>
+            <span class="text-xs text-muted font-label">{{ 'contact.form.error' | translate }}</span>
           }
           <button #submitBtnRef type="submit" class="cv-button cursor-pointer" [disabled]="submitting()">
-            {{ submitting() ? 'Sending...' : 'Send message' }}
+            {{ (submitting() ? 'contact.form.sending' : 'contact.form.send') | translate }}
             @if (!submitting()) {
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-4" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.77 59.77 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
@@ -135,33 +134,35 @@
   </div>
 
   <div class="flex flex-col">
-    <span class="text-muted font-label text-xs uppercase">Availability</span>
-    <h2 class="font-header text-4xl lg:text-5xl text-primary mt-2 mb-3">From <span class="text-highlight italic">September 2026</span></h2>
-    <p class="font-label text-base text-primary">Consultancy is a preference. Junior fullstack roles. On-site or hybrid in Belgium, or remote within the EU.</p>
+    <span class="text-muted font-label text-xs uppercase">{{ 'contact.availability' | translate }}</span>
+    <h2 class="font-header text-4xl lg:text-5xl text-primary mt-2 mb-3">
+      {{ 'contact.from_prefix' | translate }} <span class="text-highlight italic">{{ siteSettings()?.availability_from }}</span>
+    </h2>
+    <p class="font-label text-base text-primary">{{ siteSettings()?.availability_description }}</p>
 
     <div class="grid grid-cols-2 border-t border-b border-grey mt-6 py-5">
       <div>
-        <span class="text-muted font-label text-xs uppercase block mb-2">Based in</span>
-        <span class="font-body text-xl text-primary">Vilvoorde, BE</span>
+        <span class="text-muted font-label text-xs uppercase block mb-2">{{ 'contact.based_in' | translate }}</span>
+        <span class="font-body text-lg lg:text-xl text-primary">{{ siteSettings()?.location }}</span>
       </div>
       <div>
-        <span class="text-muted font-label text-xs uppercase block mb-2">Speaks</span>
-        <span class="font-body text-xl text-primary">ES · NL · FR · EN</span>
+        <span class="text-muted font-label text-xs uppercase block mb-2">{{ 'contact.speaks' | translate }}</span>
+        <span class="font-body text-lg lg:text-xl text-primary">EN · FR · NL · ES</span>
       </div>
     </div>
 
     <div class="mt-5">
-      <span class="text-muted font-label text-xs uppercase block mb-4">Elsewhere</span>
+      <span class="text-muted font-label text-xs uppercase block mb-4">{{ 'contact.elsewhere' | translate }}</span>
       <div class="flex gap-4">
         <a href="https://github.com/RodrigoUma04" target="_blank" rel="noopener"
           aria-label="GitHub"
-           draggable="false"
+          draggable="false"
           class="text-primary hover:text-muted transition-colors duration-150">
           <i class="devicon-github-original text-4xl"></i>
         </a>
         <a href="https://www.linkedin.com/in/rodrigo-umaña-5523662b8" target="_blank" rel="noopener"
           aria-label="LinkedIn"
-           draggable="false"
+          draggable="false"
           class="text-primary hover:text-muted transition-colors duration-150">
           <i class="devicon-linkedin-plain text-4xl"></i>
         </a>

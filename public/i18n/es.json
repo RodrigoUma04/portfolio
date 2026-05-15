@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "INICIO",
+    "work": "PROYECTOS",
+    "about": "SOBRE MÍ",
+    "contact": "CONTACTO"
+  },
+  "contact": {
+    "hero_before": "",
+    "hero_after": "Hablemos.",
+    "hero_subtitle": "Sobre roles, proyectos, o construir algo de principio a fin.",
+    "email_label": "EMAIL PRINCIPAL",
+    "replies_before": "Suele responder",
+    "replies_within": "en un día",
+    "copy_email": "Copiar email",
+    "copied": "¡Copiado!",
+    "open_in_mail": "Abrir en app de correo",
+    "or_send": "O — ENVIAR UN MENSAJE",
+    "availability": "Disponibilidad",
+    "from_prefix": "Desde",
+    "based_in": "Ubicado en",
+    "speaks": "Idiomas",
+    "elsewhere": "En otras redes",
+    "form": {
+      "name_label": "Tu nombre",
+      "email_label": "Email",
+      "role_label": "Eres",
+      "message_label": "Mensaje",
+      "name_placeholder": "Tu nombre",
+      "email_placeholder": "tu@ejemplo.com",
+      "message_placeholder": "Algunas líneas sobre el rol, el equipo y lo que quieres construir.",
+      "recruiter": "Reclutador",
+      "engineer": "Ingeniero",
+      "other": "Otro",
+      "send": "Enviar mensaje",
+      "sending": "Enviando...",
+      "success": "Mensaje enviado. Te responderé pronto.",
+      "error": "Algo salió mal. Intenta enviar un email directamente.",
+      "validation": {
+        "name_required": "El nombre es requerido.",
+        "email_required": "El email es requerido.",
+        "email_invalid": "Ingresa un email válido.",
+        "role_required": "Por favor selecciona un rol.",
+        "message_required": "El mensaje es requerido."
+      }
+    }
+  }
+}

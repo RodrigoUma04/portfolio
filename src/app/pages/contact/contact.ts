@@ -1,19 +1,22 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { TranslatePipe } from '@ngx-translate/core';
 import gsap from 'gsap';
+import { SiteSettingsService } from '../../services/site-settings.service';
 
 type Role = 'recruiter' | 'engineer' | 'other';
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslatePipe],
   templateUrl: './contact.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Contact implements AfterViewInit {
   private readonly fb = inject(FormBuilder);
   private readonly http = inject(HttpClient);
+  protected readonly siteSettings = inject(SiteSettingsService).settings;
 
   @ViewChild('heroRef') private readonly heroRef!: ElementRef<HTMLElement>;
   @ViewChild('emailCardRef') private readonly emailCardRef!: ElementRef<HTMLElement>;
@@ -50,7 +53,8 @@ export class Contact implements AfterViewInit {
   }
 
   copyEmail() {
-    navigator.clipboard.writeText('talk@rodruma.com').then(() => {
+    const email = this.siteSettings()?.email ?? '';
+    navigator.clipboard.writeText(email).then(() => {
       this.copied.set(true);
       setTimeout(() => this.copied.set(false), 2000);
     });
@@ -90,7 +94,7 @@ export class Contact implements AfterViewInit {
           this.submitting.set(false);
         },
         error: () => {
-          this.submitError.set('Something went wrong. Try emailing directly.');
+          this.submitError.set('error');
           this.submitting.set(false);
         },
       });

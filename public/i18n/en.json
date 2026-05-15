@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "HOME",
+    "work": "WORK",
+    "about": "ABOUT",
+    "contact": "CONTACT"
+  },
+  "contact": {
+    "hero_before": "Let's ",
+    "hero_after": "talk.",
+    "hero_subtitle": "About roles, projects, or building something end-to-end.",
+    "email_label": "PRIMARY - EMAIL",
+    "replies_before": "Usually replies",
+    "replies_within": "within a day",
+    "copy_email": "Copy email",
+    "copied": "Copied!",
+    "open_in_mail": "Open in mail app",
+    "or_send": "OR — SEND A MESSAGE",
+    "availability": "Availability",
+    "from_prefix": "From",
+    "based_in": "Based in",
+    "speaks": "Speaks",
+    "elsewhere": "Elsewhere",
+    "form": {
+      "name_label": "Your name",
+      "email_label": "Email",
+      "role_label": "You are a",
+      "message_label": "Message",
+      "name_placeholder": "Your name",
+      "email_placeholder": "you@example.com",
+      "message_placeholder": "A few lines about the role, the team, and what you're trying to build.",
+      "recruiter": "Recruiter",
+      "engineer": "Engineer",
+      "other": "Other",
+      "send": "Send message",
+      "sending": "Sending...",
+      "success": "Message sent. I'll get back to you soon.",
+      "error": "Something went wrong. Try emailing directly.",
+      "validation": {
+        "name_required": "Name is required.",
+        "email_required": "Email is required.",
+        "email_invalid": "Enter a valid email.",
+        "role_required": "Please select a role.",
+        "message_required": "Message is required."
+      }
+    }
+  }
+}

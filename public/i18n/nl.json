@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "HOME",
+    "work": "WERK",
+    "about": "OVER MIJ",
+    "contact": "CONTACT"
+  },
+  "contact": {
+    "hero_before": "Laten we ",
+    "hero_after": "praten.",
+    "hero_subtitle": "Over rollen, projecten, of iets van A tot Z bouwen.",
+    "email_label": "PRIMAIR - EMAIL",
+    "replies_before": "Antwoordt meestal",
+    "replies_within": "binnen een dag",
+    "copy_email": "Email kopiëren",
+    "copied": "Gekopieerd!",
+    "open_in_mail": "Openen in mailapp",
+    "or_send": "OF — STUUR EEN BERICHT",
+    "availability": "Beschikbaarheid",
+    "from_prefix": "Vanaf",
+    "based_in": "Gebaseerd in",
+    "speaks": "Talen",
+    "elsewhere": "Elders",
+    "form": {
+      "name_label": "Uw naam",
+      "email_label": "Email",
+      "role_label": "U bent een",
+      "message_label": "Bericht",
+      "name_placeholder": "Uw naam",
+      "email_placeholder": "u@voorbeeld.com",
+      "message_placeholder": "Een paar regels over de rol, het team en wat u wilt bouwen.",
+      "recruiter": "Recruiter",
+      "engineer": "Ingenieur",
+      "other": "Andere",
+      "send": "Bericht sturen",
+      "sending": "Verzenden...",
+      "success": "Bericht verzonden. Ik neem snel contact op.",
+      "error": "Er is iets misgegaan. Probeer rechtstreeks te mailen.",
+      "validation": {
+        "name_required": "Naam is verplicht.",
+        "email_required": "Email is verplicht.",
+        "email_invalid": "Voer een geldig email in.",
+        "role_required": "Selecteer een rol.",
+        "message_required": "Bericht is verplicht."
+      }
+    }
+  }
+}

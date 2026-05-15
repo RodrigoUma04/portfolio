@@ -10,6 +10,6 @@
       [routerLinkActiveOptions]="{ exact: link.exact }"
       [attr.aria-current]="rla.isActive ? 'page' : null"
       class="nav-link"
-    >{{ link.label }}</a>
+    >{{ link.label | translate }}</a>
   }
 </nav>

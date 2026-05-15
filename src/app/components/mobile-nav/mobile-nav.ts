@@ -4,17 +4,21 @@ import {
   Component,
   ElementRef,
   effect,
+  inject,
   input,
   output,
   viewChild,
   viewChildren,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import gsap from 'gsap';
+import { LanguageSwitcher } from '../language-switcher/language-switcher';
+import { SiteSettingsService } from '../../services/site-settings.service';
 
 @Component({
   selector: 'app-mobile-nav',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe, LanguageSwitcher],
   templateUrl: './mobile-nav.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
@@ -27,11 +31,13 @@ export class MobileNav implements AfterViewInit {
   isOpen = input<boolean>(false);
   closed = output<void>();
 
+  protected readonly siteSettings = inject(SiteSettingsService).settings;
+
   protected readonly links = [
-    { label: 'HOME', route: '/home', exact: true },
-    { label: 'WORK', route: '/work', exact: false },
-    { label: 'ABOUT', route: '/about', exact: false },
-    { label: 'CONTACT', route: '/contact', exact: false },
+    { label: 'nav.home', route: '/home', exact: true },
+    { label: 'nav.work', route: '/work', exact: false },
+    { label: 'nav.about', route: '/about', exact: false },
+    { label: 'nav.contact', route: '/contact', exact: false },
   ];
 
   private readonly overlayRef = viewChild.required<ElementRef<HTMLElement>>('overlay');

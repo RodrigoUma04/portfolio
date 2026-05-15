@@ -52,7 +52,7 @@
   }
 
   .nav-link {
-    @apply relative z-10 font-label text-primary w-full flex items-center justify-center text-lg select-none rounded-3xl transition-colors duration-300;
+    @apply relative z-10 font-label text-primary w-full flex items-center justify-center text-[1.1rem] select-none rounded-3xl transition-colors duration-300;
 
     &:hover:not(.active) {
       @apply bg-hover;

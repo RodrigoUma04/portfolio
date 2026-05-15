@@ -4,14 +4,17 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Nav } from '../../components/nav/nav';
 import { MobileNav } from '../../components/mobile-nav/mobile-nav';
+import { LanguageSwitcher } from '../../components/language-switcher/language-switcher';
+import { SiteSettingsService } from '../../services/site-settings.service';
 
 @Component({
   selector: 'app-header',
-  imports: [Nav, MobileNav],
+  imports: [Nav, MobileNav, LanguageSwitcher],
   templateUrl: './header.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  protected readonly siteSettings = inject(SiteSettingsService).settings;
   protected isMenuOpen = signal(false);
 
   constructor() {

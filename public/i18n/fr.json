@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "ACCUEIL",
+    "work": "PROJETS",
+    "about": "À PROPOS",
+    "contact": "CONTACT"
+  },
+  "contact": {
+    "hero_before": "",
+    "hero_after": "Parlons.",
+    "hero_subtitle": "Pour des rôles, projets, ou construire quelque chose de A à Z.",
+    "email_label": "EMAIL PRINCIPAL",
+    "replies_before": "Répond généralement",
+    "replies_within": "dans la journée",
+    "copy_email": "Copier l'email",
+    "copied": "Copié !",
+    "open_in_mail": "Ouvrir dans l'app mail",
+    "or_send": "OU — ENVOYER UN MESSAGE",
+    "availability": "Disponibilité",
+    "from_prefix": "À partir de",
+    "based_in": "Basé à",
+    "speaks": "Langues",
+    "elsewhere": "Ailleurs",
+    "form": {
+      "name_label": "Votre nom",
+      "email_label": "Email",
+      "role_label": "Vous êtes",
+      "message_label": "Message",
+      "name_placeholder": "Votre nom",
+      "email_placeholder": "vous@exemple.com",
+      "message_placeholder": "Quelques lignes sur le poste, l'équipe et ce que vous cherchez à construire.",
+      "recruiter": "Recruteur",
+      "engineer": "Ingénieur",
+      "other": "Autre",
+      "send": "Envoyer",
+      "sending": "Envoi en cours...",
+      "success": "Message envoyé. Je vous répondrai bientôt.",
+      "error": "Une erreur est survenue. Essayez d'envoyer un email directement.",
+      "validation": {
+        "name_required": "Le nom est requis.",
+        "email_required": "L'email est requis.",
+        "email_invalid": "Entrez un email valide.",
+        "role_required": "Veuillez sélectionner un rôle.",
+        "message_required": "Le message est requis."
+      }
+    }
+  }
+}
