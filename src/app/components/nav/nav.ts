@@ -33,7 +33,7 @@ export class Nav implements AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.movePill(false));
+    requestAnimationFrame(() => this.movePill(false));
 
     const nav = this.pillRef().nativeElement.parentElement!;
     const ro = new ResizeObserver(() => this.movePill(false));
@@ -61,11 +61,14 @@ export class Nav implements AfterViewInit {
     const el = activeLink.nativeElement;
     const navRect = nav.getBoundingClientRect();
     const linkRect = el.getBoundingClientRect();
+    const navStyle = getComputedStyle(nav);
+    const borderLeft = parseFloat(navStyle.borderLeftWidth);
+    const borderTop = parseFloat(navStyle.borderTopWidth);
 
     const pillProps = {
       autoAlpha: 1,
-      x: linkRect.left - navRect.left,
-      y: linkRect.top - navRect.top,
+      x: linkRect.left - navRect.left - borderLeft,
+      y: linkRect.top - navRect.top - borderTop,
       width: linkRect.width,
       height: linkRect.height,
     };

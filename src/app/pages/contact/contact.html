@@ -57,7 +57,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-[120px_1fr] items-start border-b border-grey py-5 gap-2 sm:gap-4">
           <label for="contact-name" class="text-muted font-label text-xs uppercase">Your name</label>
           <div class="flex flex-col">
-            <input id="contact-name" type="text" formControlName="name" placeholder="Your Name"
+            <input id="contact-name" type="text" formControlName="name" placeholder="Your name"
               class="bg-transparent outline-none font-body text-xl text-primary placeholder:text-muted w-full">
             @if (form.get('name')?.invalid && form.get('name')?.touched) {
               <span class="text-xs text-red-700 font-label mt-1">Name is required.</span>

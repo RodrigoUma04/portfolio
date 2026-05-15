@@ -41,7 +41,7 @@
 
   .nav-pill {
     @apply
-    relative flex items-center justify-around gap-1
+    relative flex gap-1
     bg-white rounded-3xl p-1 h-[5dvh]
     border border-grey
     select-none;
@@ -52,7 +52,7 @@
   }
 
   .nav-link {
-    @apply relative z-10 font-label text-primary w-full h-full text-center text-lg content-center select-none rounded-3xl transition-colors duration-300;
+    @apply relative z-10 font-label text-primary w-full flex items-center justify-center text-lg select-none rounded-3xl transition-colors duration-300;
 
     &:hover:not(.active) {
       @apply bg-hover;
