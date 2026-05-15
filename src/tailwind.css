@@ -32,7 +32,7 @@
     @apply flex justify-between items-center
     w-full px-[5dvw] lg:px-[3dvw] py-[2dvh]
     lg:grid lg:grid-cols-3
-    relative z-[51] bg-paper;
+    relative z-51 bg-paper;
   }
 
   .header-text {
@@ -43,7 +43,8 @@
     @apply
     relative flex items-center justify-around gap-1
     bg-white rounded-3xl p-1 h-[5dvh]
-    border border-grey;
+    border border-grey
+    select-none;
   }
 
   .nav-indicator {
@@ -51,15 +52,23 @@
   }
 
   .nav-link {
-    @apply relative z-10 font-label text-primary w-full h-full text-center text-lg content-center select-none rounded-3xl;
+    @apply relative z-10 font-label text-primary w-full h-full text-center text-lg content-center select-none rounded-3xl transition-colors duration-300;
 
     &:hover:not(.active) {
       @apply bg-hover;
+    }
+
+    &.active {
+      @apply text-white;
     }
   }
 
   .cv-button {
     @apply flex items-center gap-2 bg-primary text-white rounded-3xl px-5 py-2 font-body transition-transform duration-100 active:scale-95 select-none;
+  }
+
+  .mail-button {
+    @apply flex items-center justify-center gap-2 border-2 border-primary text-primary rounded-3xl px-5 py-2 font-body transition-transform duration-100 active:scale-95 select-none cursor-pointer;
   }
 
   .burger-btn {

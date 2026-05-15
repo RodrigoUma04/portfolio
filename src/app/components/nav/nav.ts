@@ -31,7 +31,6 @@ export class Nav implements AfterViewInit {
   private readonly navLinks = viewChildren<ElementRef<HTMLElement>>('navLink');
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
-  private previousActiveEl: HTMLElement | null = null;
 
   ngAfterViewInit(): void {
     setTimeout(() => this.movePill(false));
@@ -72,16 +71,9 @@ export class Nav implements AfterViewInit {
     };
 
     if (animate) {
-      if (this.previousActiveEl && this.previousActiveEl !== el) {
-        gsap.to(this.previousActiveEl, { color: '#161412', duration: 0.3, ease: 'power3.inOut' });
-      }
-      gsap.to(el, { color: '#ffffff', duration: 0.3, ease: 'power3.inOut' });
       gsap.to(pill, { ...pillProps, duration: 0.3, ease: 'power3.inOut' });
     } else {
-      gsap.set(el, { color: '#ffffff' });
       gsap.set(pill, pillProps);
     }
-
-    this.previousActiveEl = el;
   }
 }

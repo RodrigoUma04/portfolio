@@ -3,6 +3,7 @@
   @for (link of links; track link.route) {
     <a
       #navLink
+      draggable="false"
       [routerLink]="link.route"
       routerLinkActive="active"
       #rla="routerLinkActive"
