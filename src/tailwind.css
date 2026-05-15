@@ -41,18 +41,17 @@
 
   .nav-pill {
     @apply
-    flex items-center justify-around gap-1
+    relative flex items-center justify-around gap-1
     bg-white rounded-3xl p-1 h-[5dvh]
     border border-grey;
   }
 
-  .nav-link {
-    @apply font-label text-primary w-full h-full text-center text-lg content-center select-none transition-all duration-200 rounded-3xl;
+  .nav-indicator {
+    @apply absolute top-0 left-0 bg-primary rounded-3xl pointer-events-none opacity-0;
+  }
 
-    &.active {
-      @apply
-      bg-primary text-white;
-    }
+  .nav-link {
+    @apply relative z-10 font-label text-primary w-full h-full text-center text-lg content-center select-none rounded-3xl;
 
     &:hover:not(.active) {
       @apply bg-hover;

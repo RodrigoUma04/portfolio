@@ -1,6 +1,8 @@
 <nav class="nav-pill" aria-label="Main navigation">
+  <div #pill class="nav-indicator"></div>
   @for (link of links; track link.route) {
     <a
+      #navLink
       [routerLink]="link.route"
       routerLinkActive="active"
       #rla="routerLinkActive"

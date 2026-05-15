@@ -16,7 +16,6 @@ import gsap from 'gsap';
   selector: 'app-mobile-nav',
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './mobile-nav.html',
-  styleUrl: './mobile-nav.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(touchstart)': 'onTouchStart($event)',
