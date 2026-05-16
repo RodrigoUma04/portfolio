@@ -21,7 +21,19 @@
   </nav>
 
   <div class="flex flex-col items-center gap-4 pb-[5dvh]">
-    <app-language-switcher [openUp]="true" />
+    <div class="flex items-center gap-3 font-body text-xl select-none">
+      @for (lang of languageService.langs; track lang; let last = $last) {
+        <button
+          type="button"
+          (click)="selectLang(lang, $event)"
+          class="uppercase transition-colors duration-150"
+          [class.text-primary]="languageService.currentLang() === lang"
+          [class.font-bold]="languageService.currentLang() === lang"
+          [class.text-muted]="languageService.currentLang() !== lang"
+        >{{ lang }}</button>
+        @if (!last) { <span class="text-muted">·</span> }
+      }
+    </div>
     @if (siteSettings()?.availability_open) {
       <span class="flex items-center gap-2.5 text-base font-label text-muted select-none">
         <span class="relative flex items-center justify-center size-3">

@@ -13,12 +13,12 @@ import {
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import gsap from 'gsap';
-import { LanguageSwitcher } from '../language-switcher/language-switcher';
+import { LanguageService, type Lang } from '../../services/language.service';
 import { SiteSettingsService } from '../../services/site-settings.service';
 
 @Component({
   selector: 'app-mobile-nav',
-  imports: [RouterLink, RouterLinkActive, TranslatePipe, LanguageSwitcher],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe],
   templateUrl: './mobile-nav.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
@@ -32,6 +32,7 @@ export class MobileNav implements AfterViewInit {
   closed = output<void>();
 
   protected readonly siteSettings = inject(SiteSettingsService).settings;
+  protected readonly languageService = inject(LanguageService);
 
   protected readonly links = [
     { label: 'nav.home', route: '/home', exact: true },
@@ -62,6 +63,12 @@ export class MobileNav implements AfterViewInit {
 
   protected onLinkClick(): void {
     this.closed.emit();
+  }
+
+  protected selectLang(lang: Lang, event: MouseEvent): void {
+    this.languageService.setLanguage(lang);
+    const btn = event.currentTarget as HTMLElement;
+    gsap.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.1, ease: 'power2.out', yoyo: true, repeat: 1 });
   }
 
   protected onTouchStart(event: TouchEvent): void {

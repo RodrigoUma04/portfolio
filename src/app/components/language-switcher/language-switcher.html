@@ -1,6 +1,6 @@
 <div class="relative select-none">
   <button
-    (click)="toggle($event)"
+    (click)="toggle()"
     class="flex items-center gap-1 font-label text-sm text-muted hover:text-primary transition-colors duration-150 cursor-pointer uppercase"
     [attr.aria-expanded]="open()"
     aria-haspopup="listbox"
@@ -24,16 +24,12 @@
     #dropdown
     role="listbox"
     aria-label="Language options"
-    class="absolute right-0 bg-paper border border-grey rounded-lg overflow-hidden z-50 min-w-16"
-    [class.top-full]="!openUp()"
-    [class.mt-2]="!openUp()"
-    [class.bottom-full]="openUp()"
-    [class.mb-2]="openUp()"
+    class="absolute right-0 top-full mt-2 bg-paper border border-grey rounded-lg overflow-hidden z-50 min-w-16"
   >
     @for (lang of languageService.langs; track lang) {
       <option [attr.aria-selected]="languageService.currentLang() === lang">
         <button
-          (click)="select(lang, $event)"
+          (click)="select(lang)"
           class="w-full px-4 py-2 font-label text-sm uppercase text-left transition-colors duration-150 cursor-pointer"
           [class.text-primary]="languageService.currentLang() === lang"
           [class.font-bold]="languageService.currentLang() === lang"

@@ -19,6 +19,7 @@ export class ScrollRevealDirective {
       }
 
       gsap.registerPlugin(ScrollTrigger);
+      gsap.set(el, { autoAlpha: 0, y: 32 });
 
       const alreadyVisible = el.getBoundingClientRect().top < window.innerHeight && window.scrollY === 0;
 
