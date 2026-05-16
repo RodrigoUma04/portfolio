@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AboutBlocksService } from '../../services/about-blocks.service';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 import { HeadlineBlock } from './blocks/headline/headline-block';
 import { BioBlock } from './blocks/bio/bio-block';
 import { FactsBlock } from './blocks/facts/facts-block';
@@ -11,7 +12,7 @@ import { CtaBlock } from './blocks/cta/cta-block';
 
 @Component({
   selector: 'app-about',
-  imports: [HeadlineBlock, BioBlock, FactsBlock, CardsBlock, TimelineBlock, CurrentsBlock, QuoteBlock, CtaBlock],
+  imports: [ScrollRevealDirective, HeadlineBlock, BioBlock, FactsBlock, CardsBlock, TimelineBlock, CurrentsBlock, QuoteBlock, CtaBlock],
   templateUrl: './about.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

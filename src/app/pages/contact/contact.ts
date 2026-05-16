@@ -1,27 +1,25 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { TranslatePipe } from '@ngx-translate/core';
 import gsap from 'gsap';
 import { SiteSettingsService } from '../../services/site-settings.service';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 type Role = 'recruiter' | 'engineer' | 'other';
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule, TranslatePipe],
+  imports: [ReactiveFormsModule, TranslatePipe, ScrollRevealDirective],
   templateUrl: './contact.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Contact implements AfterViewInit {
+export class Contact {
   private readonly fb = inject(FormBuilder);
   private readonly http = inject(HttpClient);
   protected readonly siteSettings = inject(SiteSettingsService).settings;
 
-  @ViewChild('heroRef') private readonly heroRef!: ElementRef<HTMLElement>;
-  @ViewChild('emailCardRef') private readonly emailCardRef!: ElementRef<HTMLElement>;
-  @ViewChild('formSectionRef') private readonly formSectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('submitBtnRef') private readonly submitBtnRef!: ElementRef<HTMLButtonElement>;
+  private readonly submitBtnRef = viewChild.required<ElementRef<HTMLButtonElement>>('submitBtnRef');
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -35,22 +33,6 @@ export class Contact implements AfterViewInit {
   submitting = signal(false);
   submitSuccess = signal(false);
   submitError = signal<string | null>(null);
-
-  ngAfterViewInit() {
-    const els = [
-      this.heroRef.nativeElement,
-      this.emailCardRef.nativeElement,
-      this.formSectionRef.nativeElement,
-    ];
-    gsap.set(els, { autoAlpha: 0, y: 24 });
-    gsap.to(els, {
-      autoAlpha: 1,
-      y: 0,
-      duration: 0.6,
-      ease: 'power3.out',
-      stagger: 0.12,
-    });
-  }
 
   copyEmail() {
     const email = this.siteSettings()?.email ?? '';
@@ -75,7 +57,7 @@ export class Contact implements AfterViewInit {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       gsap.fromTo(
-        this.submitBtnRef.nativeElement,
+        this.submitBtnRef().nativeElement,
         { x: 0 },
         { x: 10, duration: 0.07, ease: 'power2.inOut', yoyo: true, repeat: 5 },
       );

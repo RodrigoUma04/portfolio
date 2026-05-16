@@ -1,9 +1,9 @@
-<div #heroRef class="py-[5dvh] px-[5dvw] flex flex-col lg:flex-row lg:justify-between lg:items-center gap-5 select-none">
+<div appScrollReveal [index]="0" class="py-[5dvh] px-[5dvw] flex flex-col lg:flex-row lg:justify-between lg:items-center gap-5 select-none">
   <span class="text-8xl font-header text-primary">{{ 'contact.hero_before' | translate }}<span class="text-highlight italic">{{ 'contact.hero_after' | translate }}</span></span>
   <span class="text-xl font-label text-primary lg:w-[40%]">{{ 'contact.hero_subtitle' | translate }}</span>
 </div>
 
-<div #emailCardRef class="mx-[5dvw] mb-[5dvh] border border-grey rounded-lg p-5 bg-white flex flex-col lg:flex-row justify-between gap-6 lg:gap-0 select-none">
+<div appScrollReveal [index]="1" class="mx-[5dvw] mb-[5dvh] border border-grey rounded-lg p-5 bg-white flex flex-col lg:flex-row justify-between gap-6 lg:gap-0 select-none">
   <div class="flex flex-col gap-5">
     <span class="block text-muted font-label">{{ 'contact.email_label' | translate }}</span>
     <span class="block self-center text-4xl font-body"><span class="text-highlight">{{ siteSettings()?.email?.split('@')![0] }}</span><span class="text-primary">&#64;{{ siteSettings()?.email?.split('@')![1] }}</span></span>
@@ -39,7 +39,7 @@
 </div>
 
 
-<div #formSectionRef class="mx-[5dvw] pb-[5dvh] grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12 select-none">
+<div appScrollReveal [index]="2" class="mx-[5dvw] pb-[5dvh] grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12 select-none">
   <div>
     <div class="flex justify-between items-center text-muted font-label text-xs pb-4 border-b border-grey">
       <span>{{ 'contact.or_send' | translate }}</span>
