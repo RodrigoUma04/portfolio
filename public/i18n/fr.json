@@ -5,6 +5,13 @@
     "about": "À PROPOS",
     "contact": "CONTACT"
   },
+  "about": {
+    "facts_label": "EN UN COUP D'ŒIL",
+    "cards_label": "EN DEHORS DU TRAVAIL",
+    "timeline_label": "FORMATION & EXPÉRIENCE",
+    "currents_label": "EN CE MOMENT",
+    "cta_link_label": "Me contacter"
+  },
   "contact": {
     "hero_before": "",
     "hero_after": "Parlons.",

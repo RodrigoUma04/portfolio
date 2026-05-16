@@ -1,0 +1,11 @@
+<p class="text-muted font-label text-xs uppercase tracking-widest pb-4 mb-6 border-b border-muted">{{ 'about.facts_label' | translate }}</p>
+<div class="grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+  @for (item of data().items; track $index) {
+    <div>
+      @if (item.label) {
+        <span class="block text-muted font-label text-xs uppercase tracking-widest mb-1">{{ item.label }}</span>
+      }
+      <span class="font-body text-lg text-primary">{{ item.value }}</span>
+    </div>
+  }
+</div>

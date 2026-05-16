@@ -1,1 +1,14 @@
-<p>about works!</p>
+<div class="py-[5dvh] px-[5dvw] flex flex-col gap-[8dvh] select-none">
+  @for (block of blocks(); track $index) {
+    @switch (block.type) {
+      @case ('headline') { <app-headline-block [data]="$any(block.data)" /> }
+      @case ('bio')      { <app-bio-block      [data]="$any(block.data)" /> }
+      @case ('facts')    { <app-facts-block    [data]="$any(block.data)" /> }
+      @case ('cards')    { <app-cards-block    [data]="$any(block.data)" /> }
+      @case ('timeline') { <app-timeline-block [data]="$any(block.data)" /> }
+      @case ('currents') { <app-currents-block [data]="$any(block.data)" /> }
+      @case ('quote')    { <app-quote-block    [data]="$any(block.data)" /> }
+      @case ('cta')      { <app-cta-block      [data]="$any(block.data)" /> }
+    }
+  }
+</div>

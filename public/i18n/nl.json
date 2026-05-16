@@ -5,6 +5,13 @@
     "about": "OVER MIJ",
     "contact": "CONTACT"
   },
+  "about": {
+    "facts_label": "IN ÉÉN OOGOPSLAG",
+    "cards_label": "BUITEN HET WERK",
+    "timeline_label": "OPLEIDING & ERVARING",
+    "currents_label": "MOMENTEEL",
+    "cta_link_label": "Neem contact op"
+  },
   "contact": {
     "hero_before": "Laten we ",
     "hero_after": "praten.",

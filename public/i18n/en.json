@@ -5,6 +5,13 @@
     "about": "ABOUT",
     "contact": "CONTACT"
   },
+  "about": {
+    "facts_label": "AT A GLANCE",
+    "cards_label": "OFF THE CLOCK",
+    "timeline_label": "EDUCATION & EXPERIENCE",
+    "currents_label": "CURRENTS",
+    "cta_link_label": "Get in touch"
+  },
   "contact": {
     "hero_before": "Let's ",
     "hero_after": "talk.",

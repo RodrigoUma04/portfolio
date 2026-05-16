@@ -1,0 +1,8 @@
+<blockquote class="border-t border-b border-grey py-10">
+  <p class="font-header text-2xl lg:text-4xl text-primary italic leading-snug">
+    "{{ data().text }}"
+  </p>
+  @if (data().attribution) {
+    <footer class="font-label text-sm text-muted mt-5">— {{ data().attribution }}</footer>
+  }
+</blockquote>

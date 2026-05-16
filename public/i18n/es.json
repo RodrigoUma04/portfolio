@@ -5,6 +5,13 @@
     "about": "SOBRE MÍ",
     "contact": "CONTACTO"
   },
+  "about": {
+    "facts_label": "DE UN VISTAZO",
+    "cards_label": "FUERA DEL TRABAJO",
+    "timeline_label": "FORMACIÓN & EXPERIENCIA",
+    "currents_label": "ACTUALMENTE",
+    "cta_link_label": "Contactar"
+  },
   "contact": {
     "hero_before": "",
     "hero_after": "Hablemos.",

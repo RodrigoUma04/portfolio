@@ -1,0 +1,15 @@
+<p class="text-muted font-label text-xs uppercase tracking-widest pb-4 mb-6 border-b border-muted">{{ 'about.currents_label' | translate }}</p>
+<div class="grid gap-8" [class]="gridCols()">
+  @for (col of data().columns; track $index) {
+    <div>
+      @if (col.label) {
+        <h3 class="font-header text-2xl text-primary italic mb-4">{{ col.label }}</h3>
+      }
+      <ul class="flex flex-col gap-2">
+        @for (item of col.items; track $index) {
+          <li class="font-body text-base text-muted">{{ item }}</li>
+        }
+      </ul>
+    </div>
+  }
+</div>
