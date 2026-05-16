@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, afterNextRender, effect, inject, signal, viewChild, ElementRef } from '@angular/core';
+import { gsap } from 'gsap';
 import { LanguageService, type Lang } from '../../services/language.service';
 
 @Component({
@@ -12,6 +13,30 @@ import { LanguageService, type Lang } from '../../services/language.service';
 export class LanguageSwitcher {
   protected readonly languageService = inject(LanguageService);
   protected readonly open = signal(false);
+
+  private readonly injector = inject(Injector);
+  private readonly dropdownRef = viewChild<ElementRef<HTMLElement>>('dropdown');
+
+  constructor() {
+    afterNextRender(() => {
+      const el = this.dropdownRef()?.nativeElement;
+      if (!el) return;
+      gsap.set(el, { opacity: 0, y: -6, pointerEvents: 'none' });
+
+      effect(() => {
+        const isOpen = this.open();
+        gsap.to(el, {
+          opacity: isOpen ? 1 : 0,
+          y: isOpen ? 0 : -6,
+          duration: 0.15,
+          ease: 'power2.out',
+          overwrite: true,
+          onStart: () => { if (isOpen) gsap.set(el, { pointerEvents: 'auto' }); },
+          onComplete: () => { if (!isOpen) gsap.set(el, { pointerEvents: 'none' }); },
+        });
+      }, { injector: this.injector });
+    });
+  }
 
   protected toggle(event: MouseEvent): void {
     event.stopPropagation();

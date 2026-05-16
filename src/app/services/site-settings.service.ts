@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { LanguageService } from './language.service';
 
 interface SiteSettingsTranslation {
+  cv: string | null;
   location: string;
   availability_label: string;
   availability_from: string;
