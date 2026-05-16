@@ -1,4 +1,5 @@
 import {
+  afterNextRender,
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
@@ -33,8 +34,11 @@ export class Nav implements AfterViewInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
+  constructor() {
+    afterNextRender(() => this.movePill(false));
+  }
+
   ngAfterViewInit(): void {
-    requestAnimationFrame(() => this.movePill(false));
 
     const nav = this.pillRef().nativeElement.parentElement!;
     const ro = new ResizeObserver(() => this.movePill(false));

@@ -10,16 +10,15 @@ export class ScrollRevealDirective {
   readonly index = input(0);
 
   constructor() {
-    afterNextRender(() => {
-      const el = this.el.nativeElement;
+    const el = this.el.nativeElement;
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        gsap.set(el, { autoAlpha: 1 });
+    afterNextRender(() => {
+      if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.set(el, { autoAlpha: 1, y: 0 });
         return;
       }
 
       gsap.registerPlugin(ScrollTrigger);
-      gsap.set(el, { autoAlpha: 0, y: 32 });
 
       const alreadyVisible = el.getBoundingClientRect().top < window.innerHeight && window.scrollY === 0;
 

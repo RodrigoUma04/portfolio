@@ -24,7 +24,11 @@
     #dropdown
     role="listbox"
     aria-label="Language options"
-    class="absolute right-0 top-full mt-2 bg-paper border border-grey rounded-lg overflow-hidden z-50 min-w-16"
+    class="absolute right-0 bg-paper border border-grey rounded-lg overflow-hidden z-50 min-w-16"
+    [class.top-full]="!openUp()"
+    [class.mt-2]="!openUp()"
+    [class.bottom-full]="openUp()"
+    [class.mb-2]="openUp()"
   >
     @for (lang of languageService.langs; track lang) {
       <option [attr.aria-selected]="languageService.currentLang() === lang">

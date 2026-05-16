@@ -1,4 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource/instrument-serif/latin-400.css';
+@import '@fontsource/instrument-serif/latin-400-italic.css';
 html, body {
   margin: 0;
+  overflow-x: hidden;
+}
+
+[appScrollReveal] {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(32px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [appScrollReveal] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
 }

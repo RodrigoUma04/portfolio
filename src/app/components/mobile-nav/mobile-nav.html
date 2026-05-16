@@ -21,7 +21,7 @@
   </nav>
 
   <div class="flex flex-col items-center gap-4 pb-[5dvh]">
-    <app-language-switcher />
+    <app-language-switcher [openUp]="true" />
     @if (siteSettings()?.availability_open) {
       <span class="flex items-center gap-2.5 text-base font-label text-muted select-none">
         <span class="relative flex items-center justify-center size-3">

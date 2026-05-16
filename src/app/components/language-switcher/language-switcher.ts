@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, afterNextRender, effect, inject, signal, viewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, afterNextRender, effect, inject, input, signal, viewChild, ElementRef } from '@angular/core';
 import { gsap } from 'gsap';
 import { LanguageService, type Lang } from '../../services/language.service';
 
@@ -11,6 +11,7 @@ import { LanguageService, type Lang } from '../../services/language.service';
   },
 })
 export class LanguageSwitcher {
+  readonly openUp = input(false);
   protected readonly languageService = inject(LanguageService);
   protected readonly open = signal(false);
 
@@ -21,13 +22,14 @@ export class LanguageSwitcher {
     afterNextRender(() => {
       const el = this.dropdownRef()?.nativeElement;
       if (!el) return;
-      gsap.set(el, { opacity: 0, y: -6, pointerEvents: 'none' });
+      const yOffset = this.openUp() ? 6 : -6;
+      gsap.set(el, { opacity: 0, y: yOffset, pointerEvents: 'none' });
 
       effect(() => {
         const isOpen = this.open();
         gsap.to(el, {
           opacity: isOpen ? 1 : 0,
-          y: isOpen ? 0 : -6,
+          y: isOpen ? 0 : yOffset,
           duration: 0.15,
           ease: 'power2.out',
           overwrite: true,

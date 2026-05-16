@@ -1,4 +1,4 @@
-<h1 class="font-header text-6xl lg:text-8xl text-primary leading-tight mb-6">@for (part of data().title | accent; track $index) {@if (part.accent) {<em class="text-highlight italic">{{ part.text }}</em>} @else {{{ part.text }}}}</h1>
+<h1 class="font-header text-6xl lg:text-8xl text-primary leading-tight mb-6 break-words">@for (part of data().title | accent; track $index) {@if (part.accent) {<em class="text-highlight italic">{{ part.text }}</em>} @else {{{ part.text }}}}</h1>
 @if (data().subtitle) {
   <p class="font-body text-xl text-muted lg:max-w-[50%]">{{ data().subtitle }}</p>
 }

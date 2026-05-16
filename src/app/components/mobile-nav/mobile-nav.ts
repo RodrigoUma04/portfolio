@@ -49,6 +49,7 @@ export class MobileNav implements AfterViewInit {
   constructor() {
     effect(() => {
       const open = this.isOpen();
+      document.body.style.overflow = open ? 'hidden' : '';
       if (!this.initialized) return;
       open ? this.animateOpen() : this.animateClose();
     });
