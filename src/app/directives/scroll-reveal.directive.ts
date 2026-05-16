@@ -10,11 +10,10 @@ export class ScrollRevealDirective {
   readonly index = input(0);
 
   constructor() {
-    const el = this.el.nativeElement;
-
     afterNextRender(() => {
+      const el = this.el.nativeElement;
       if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        gsap.set(el, { autoAlpha: 1, y: 0 });
+        gsap.set(el, { autoAlpha: 1 });
         return;
       }
 
@@ -24,24 +23,9 @@ export class ScrollRevealDirective {
       const alreadyVisible = el.getBoundingClientRect().top < window.innerHeight && window.scrollY === 0;
 
       if (alreadyVisible) {
-        gsap.to(el, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.7,
-          ease: 'power3.out',
-          delay: this.index() * 0.12,
-        });
+        gsap.to(el, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: this.index() * 0.12 });
       } else {
-        gsap.to(el, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.7,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-          },
-        });
+        gsap.to(el, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top bottom' } });
       }
     });
   }

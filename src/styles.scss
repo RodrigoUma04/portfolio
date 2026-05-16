@@ -7,16 +7,3 @@ html, body {
   overflow-x: hidden;
 }
 
-[appScrollReveal] {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(32px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [appScrollReveal] {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-  }
-}
