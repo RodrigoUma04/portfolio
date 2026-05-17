@@ -3,6 +3,7 @@
 # Generated content (build-time prefetch output)
 /public/data/
 /public/cv-*.pdf
+/public/images/
 
 # Compiled output
 /dist

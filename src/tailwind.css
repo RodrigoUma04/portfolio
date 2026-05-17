@@ -95,6 +95,29 @@
     }
   }
 
+  .work-row {
+    @apply grid items-center
+      border-b border-grey
+      py-5 cursor-pointer
+      transition-colors duration-200
+      hover:bg-hover;
+  }
+
+  .stack-chip {
+    @apply inline-flex items-center gap-1.5
+      font-label text-[0.62rem] text-muted
+      border border-grey rounded-full
+      px-2 py-0.5 select-none whitespace-nowrap;
+  }
+
+  .meta-chip {
+    @apply font-label text-[0.68rem] text-muted uppercase tracking-widest;
+  }
+
+  .section-label {
+    @apply font-label text-[0.68rem] text-muted uppercase tracking-widest leading-none;
+  }
+
   .mobile-nav-link {
     @apply font-label text-primary text-4xl md:text-5xl select-none tracking-widest
            transition-colors duration-200;

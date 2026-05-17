@@ -110,6 +110,139 @@ async function fetchHomeContent() {
   return result;
 }
 
+async function fetchProjectImage(fileId, destPath) {
+  const res = await fetch(`${DIRECTUS_URL}/assets/${fileId}`);
+  if (!res.ok) throw new Error(`Image download failed (${fileId}): ${res.status}`);
+  const buffer = await res.arrayBuffer();
+  writeFileSync(destPath, Buffer.from(buffer));
+}
+
+async function downloadPreviewImages(slug, imgDir, previewImages) {
+  const preview = [];
+  for (let n = 0; n < (previewImages ?? []).length; n++) {
+    const fileId = previewImages[n].directus_files_id;
+    const dest = resolve(imgDir, `preview-${n}.webp`);
+    await fetchProjectImage(fileId, dest);
+    preview.push(`/images/work/${slug}/preview-${n}.webp`);
+    console.log(`  ✓ /images/work/${slug}/preview-${n}.webp`);
+  }
+  return preview;
+}
+
+async function downloadSectionMedia(slug, imgDir, sections) {
+  const result = [];
+  for (let i = 0; i < sections.length; i++) {
+    const sec = sections[i];
+    const media = [];
+    for (let j = 0; j < (sec.media ?? []).length; j++) {
+      const fileId = sec.media[j].directus_files_id;
+      const dest = resolve(imgDir, `section-${i}-${j}.webp`);
+      await fetchProjectImage(fileId, dest);
+      media.push(`/images/work/${slug}/section-${i}-${j}.webp`);
+      console.log(`  ✓ /images/work/${slug}/section-${i}-${j}.webp`);
+    }
+    let video = null;
+    if (sec.video?.id) {
+      const ext = (sec.video.type ?? 'video/mp4').split('/')[1] || 'mp4';
+      const dest = resolve(imgDir, `section-${i}-video.${ext}`);
+      await fetchProjectImage(sec.video.id, dest);
+      video = `/images/work/${slug}/section-${i}-video.${ext}`;
+      console.log(`  ✓ /images/work/${slug}/section-${i}-video.${ext}`);
+    }
+    result.push({ media, video });
+  }
+  return result;
+}
+
+function buildTranslations(sortedSections, sectionMediaPaths, itemTranslations) {
+  const translations = {};
+  for (const t of itemTranslations ?? []) {
+    const code = normalizeLangCode(t.languages_code);
+    if (!LANGS.has(code)) continue;
+    const sections = sortedSections.map((sec, i) => {
+      const secT = (sec.translations ?? []).find(st => normalizeLangCode(st.languages_code) === code);
+      const { media, video } = sectionMediaPaths[i] ?? { media: [], video: null };
+      return {
+        label: secT?.label ?? '',
+        description: secT?.description ?? '',
+        media,
+        ...(video ? { video } : {}),
+      };
+    });
+    translations[code] = {
+      title: t.title ?? '',
+      role: t.role ?? '',
+      team: t.team ?? '',
+      description: t.description ?? '',
+      sections,
+      summary: t.summary ?? '',
+    };
+  }
+  const fallback = translations['en'] ?? Object.values(translations)[0] ?? {};
+  for (const lang of LANGS) {
+    if (!translations[lang]) translations[lang] = fallback;
+  }
+  return translations;
+}
+
+async function fetchProjects() {
+  const fields = [
+    'slug',
+    'type',
+    'year',
+    'in_progress',
+    'sort_order',
+    'stack',
+    'preview_images.directus_files_id',
+    'sections.sort',
+    'sections.video.id',
+    'sections.video.type',
+    'sections.media.directus_files_id',
+    'sections.translations.languages_code',
+    'sections.translations.label',
+    'sections.translations.description',
+    'translations.languages_code',
+    'translations.title',
+    'translations.role',
+    'translations.team',
+    'translations.description',
+    'translations.summary',
+  ].join(',');
+
+  const url = `${DIRECTUS_URL}/items/projects?fields=${fields}&sort=sort_order`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`[projects] ${res.status} ${res.statusText}\n  URL: ${url}\n  Body: ${body.slice(0, 300)}`);
+  }
+
+  const { data } = await res.json();
+  const projects = [];
+
+  for (const item of data ?? []) {
+    const slug = item.slug;
+    const imgDir = resolve(__dirname, `../public/images/work/${slug}`);
+    mkdirSync(imgDir, { recursive: true });
+
+    const preview = await downloadPreviewImages(slug, imgDir, item.preview_images);
+    const sortedSections = [...(item.sections ?? [])].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
+    const sectionMediaPaths = await downloadSectionMedia(slug, imgDir, sortedSections);
+    const translations = buildTranslations(sortedSections, sectionMediaPaths, item.translations);
+
+    projects.push({
+      slug,
+      type: item.type ?? '',
+      year: item.year ?? '',
+      inProgress: item.in_progress ?? false,
+      stack: item.stack ?? [],
+      preview,
+      ...translations,
+    });
+  }
+
+  return { projects };
+}
+
 async function fetchAboutBlocks() {
   const fields = [
     'translations.languages_code',
@@ -160,6 +293,10 @@ async function main() {
     const homeContent = await fetchHomeContent();
     writeFileSync(resolve(outDir, 'home.json'), JSON.stringify(homeContent, null, 2));
     console.log('✓ public/data/home.json');
+
+    const projectsData = await fetchProjects();
+    writeFileSync(resolve(outDir, 'projects.json'), JSON.stringify(projectsData, null, 2));
+    console.log('✓ public/data/projects.json');
 
     for (const [lang, fileId] of Object.entries(cvFiles)) {
       await fetchCv(fileId, lang);
