@@ -5,7 +5,7 @@ import { LanguageService } from './language.service';
 
 export interface TechItem {
   name: string;
-  devicon_class: string;
+  svg_url: string;
 }
 
 export interface HomeTranslation {
