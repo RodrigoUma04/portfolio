@@ -77,6 +77,39 @@ function buildAboutBlocks(t) {
   return blocks;
 }
 
+async function fetchHomeContent() {
+  const fields = [
+    'outer_ring',
+    'middle_ring',
+    'inner_ring',
+    'translations.languages_code',
+    'translations.tagline',
+    'translations.description',
+  ].join(',');
+
+  const res = await fetch(`${DIRECTUS_URL}/items/home?fields=${fields}`);
+  if (!res.ok) throw new Error(`Directus responded ${res.status}: ${res.statusText}`);
+
+  const { data } = await res.json();
+
+  const result = {
+    outer_ring: data.outer_ring ?? [],
+    middle_ring: data.middle_ring ?? [],
+    inner_ring: data.inner_ring ?? [],
+  };
+
+  for (const t of data.translations ?? []) {
+    const code = normalizeLangCode(t.languages_code);
+    if (!LANGS.has(code)) continue;
+    result[code] = {
+      tagline: t.tagline ?? '',
+      description: t.description ?? '',
+    };
+  }
+
+  return result;
+}
+
 async function fetchAboutBlocks() {
   const fields = [
     'translations.languages_code',
@@ -123,6 +156,10 @@ async function main() {
     const aboutBlocks = await fetchAboutBlocks();
     writeFileSync(resolve(outDir, 'about-blocks.json'), JSON.stringify(aboutBlocks, null, 2));
     console.log('✓ public/data/about-blocks.json');
+
+    const homeContent = await fetchHomeContent();
+    writeFileSync(resolve(outDir, 'home.json'), JSON.stringify(homeContent, null, 2));
+    console.log('✓ public/data/home.json');
 
     for (const [lang, fileId] of Object.entries(cvFiles)) {
       await fetchCv(fileId, lang);

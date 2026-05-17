@@ -1,4 +1,8 @@
 {
+  "home": {
+    "cta_work": "See selected work",
+    "cta_cv": "Download CV"
+  },
   "nav": {
     "home": "HOME",
     "work": "WORK",

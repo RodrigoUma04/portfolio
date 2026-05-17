@@ -1,4 +1,8 @@
 {
+  "home": {
+    "cta_work": "Bekijk projecten",
+    "cta_cv": "Download CV"
+  },
   "nav": {
     "home": "HOME",
     "work": "WERK",

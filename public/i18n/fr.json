@@ -1,4 +1,8 @@
 {
+  "home": {
+    "cta_work": "Voir les projets",
+    "cta_cv": "Télécharger le CV"
+  },
   "nav": {
     "home": "ACCUEIL",
     "work": "PROJETS",

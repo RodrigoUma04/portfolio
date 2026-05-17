@@ -1,0 +1,51 @@
+<div class="orb-container relative w-full max-w-[600px] aspect-square mx-auto"
+     role="img"
+     aria-label="Technology skills visualization">
+
+  <div class="orb-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-grey w-[36%] aspect-square" aria-hidden="true"></div>
+  <div class="orb-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-grey w-[68%] aspect-square" aria-hidden="true"></div>
+  <div class="orb-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-grey w-[96%] aspect-square" aria-hidden="true"></div>
+
+  @for (item of innerRing(); track item.name) {
+    <span
+      class="icon-inner absolute left-1/2 top-1/2"
+      style="animation: orbit-cw 35s linear infinite"
+      [style.--orbit-r]="'var(--r-inner)'"
+      [style.animationDelay]="(-$index / innerRing().length * 35) + 's'"
+      [title]="item.name"
+      aria-hidden="true">
+      <span class="icon-bubble flex items-center justify-center bg-white rounded-full w-6 h-6 lg:w-8 lg:h-8 border border-grey/60 shadow-sm transition-transform duration-200 hover:scale-[1.05] cursor-default">
+        <i [class]="item.devicon_class + ' text-xs lg:text-sm'"></i>
+      </span>
+    </span>
+  }
+
+  @for (item of middleRing(); track item.name) {
+    <span
+      class="icon-middle absolute left-1/2 top-1/2"
+      style="animation: orbit-ccw 55s linear infinite"
+      [style.--orbit-r]="'var(--r-middle)'"
+      [style.animationDelay]="(-$index / middleRing().length * 55) + 's'"
+      [title]="item.name"
+      aria-hidden="true">
+      <span class="icon-bubble flex items-center justify-center bg-white rounded-full w-6 h-6 lg:w-8 lg:h-8 border border-grey/60 shadow-sm transition-transform duration-200 hover:scale-[1.05] cursor-default">
+        <i [class]="item.devicon_class + ' text-xs lg:text-sm'"></i>
+      </span>
+    </span>
+  }
+
+  @for (item of outerRing(); track item.name) {
+    <span
+      class="icon-outer absolute left-1/2 top-1/2"
+      style="animation: orbit-cw 75s linear infinite"
+      [style.--orbit-r]="'var(--r-outer)'"
+      [style.animationDelay]="(-$index / outerRing().length * 75) + 's'"
+      [title]="item.name"
+      aria-hidden="true">
+      <span class="icon-bubble flex items-center justify-center bg-white rounded-full w-6 h-6 lg:w-8 lg:h-8 border border-grey/60 shadow-sm transition-transform duration-200 hover:scale-[1.05] cursor-default">
+        <i [class]="item.devicon_class + ' text-xs lg:text-sm'"></i>
+      </span>
+    </span>
+  }
+
+</div>

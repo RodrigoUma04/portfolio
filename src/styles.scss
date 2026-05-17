@@ -7,3 +7,17 @@ html, body {
   overflow-x: clip;
 }
 
+@keyframes orbit-cw {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg) translate(-50%, -50%); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg) translate(-50%, -50%); }
+}
+
+@keyframes orbit-ccw {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg) translate(-50%, -50%); }
+  to   { transform: rotate(-360deg) translateX(var(--orbit-r)) rotate(360deg) translate(-50%, -50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-inner, .icon-middle, .icon-outer { animation: none !important; }
+}
+

@@ -1,1 +1,46 @@
-<p>home works!</p>
+<section class="flex flex-1 items-center py-[4dvh] px-[5dvw] lg:px-[3dvw]">
+  <div class="grid grid-cols-1 lg:grid-cols-[55fr_45fr] w-full gap-12 lg:gap-16 items-center">
+
+    <div class="text-center lg:text-left">
+      <h1 class="hero-animate font-header text-[clamp(3.5rem,8vw,7rem)] leading-[1.05] text-primary mb-6">
+        Rodrigo Umaña<span class="text-highlight">.</span>
+      </h1>
+
+      <p class="hero-animate font-header text-[clamp(1.25rem,2.5vw,1.75rem)] text-primary mb-5">
+        @for (part of (homeService.content()?.tagline | accent); track $index) {
+          @if (part.accent) {<em class="text-highlight italic">{{ part.text }}</em>}
+          @else if (part.bold) {<strong>{{ part.text }}</strong>}
+          @else {{{ part.text }}}
+        }
+      </p>
+
+      <p class="hero-animate font-body text-base leading-[1.65] text-muted max-w-[44ch] mb-8 mx-auto lg:mx-0">
+        @for (part of (homeService.content()?.description | accent); track $index) {
+          @if (part.accent) {<em class="text-highlight italic">{{ part.text }}</em>}
+          @else if (part.bold) {<strong>{{ part.text }}</strong>}
+          @else {{{ part.text }}}
+        }
+      </p>
+
+      <div class="hero-animate flex gap-4 flex-wrap justify-center lg:justify-start">
+        <a routerLink="/work" class="cv-button">
+          {{ 'home.cta_work' | translate }} &rarr;
+        </a>
+        @if (siteSettings()?.cv; as cvLink) {
+          <a [href]="cvLink" target="_blank" rel="noopener noreferrer" class="mail-button">
+            {{ 'home.cta_cv' | translate }} &darr;
+          </a>
+        }
+      </div>
+    </div>
+
+    <div class="flex items-center justify-center order-first lg:order-last">
+      <app-tech-orb
+        [outerRing]="homeService.outerRing()"
+        [middleRing]="homeService.middleRing()"
+        [innerRing]="homeService.innerRing()"
+      />
+    </div>
+
+  </div>
+</section>
