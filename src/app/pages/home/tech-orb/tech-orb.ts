@@ -33,9 +33,9 @@ export class TechOrb {
     const allBubbles = [...innerBubbles, ...middleBubbles, ...outerBubbles];
 
     const w = container.offsetWidth;
-    container.style.setProperty('--r-inner', `${w * 0.18}px`);
-    container.style.setProperty('--r-middle', `${w * 0.34}px`);
-    container.style.setProperty('--r-outer', `${w * 0.48}px`);
+    el.querySelectorAll<HTMLElement>('.icon-inner').forEach(s => s.style.setProperty('--orbit-r', `${w * 0.18}px`));
+    el.querySelectorAll<HTMLElement>('.icon-middle').forEach(s => s.style.setProperty('--orbit-r', `${w * 0.34}px`));
+    el.querySelectorAll<HTMLElement>('.icon-outer').forEach(s => s.style.setProperty('--orbit-r', `${w * 0.48}px`));
 
     if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       gsap.set([rings, ...allBubbles], { opacity: 1 });

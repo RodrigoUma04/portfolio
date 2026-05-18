@@ -33,6 +33,7 @@ interface YearGroup {
 export class Work implements AfterViewInit, OnDestroy {
   @ViewChild('previewEl') previewElRef!: ElementRef<HTMLElement>;
 
+  private readonly elRef = inject(ElementRef<HTMLElement>);
   private readonly router = inject(Router);
   private readonly projectsService = inject(ProjectsService);
 
@@ -66,13 +67,21 @@ export class Work implements AfterViewInit, OnDestroy {
   });
 
   ngAfterViewInit() {
-    const el = this.previewElRef.nativeElement;
-    gsap.set(el, { autoAlpha: 0, xPercent: 0, yPercent: 0 });
+    const previewEl = this.previewElRef.nativeElement;
+    gsap.set(previewEl, { autoAlpha: 0, xPercent: 0, yPercent: 0 });
 
     if (!globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      this.xTo = gsap.quickTo(el, 'x', { duration: 0.35, ease: 'power3.out' }) as unknown as (x: number) => void;
-      this.yTo = gsap.quickTo(el, 'y', { duration: 0.35, ease: 'power3.out' }) as unknown as (y: number) => void;
+      this.xTo = gsap.quickTo(previewEl, 'x', { duration: 0.35, ease: 'power3.out' }) as unknown as (x: number) => void;
+      this.yTo = gsap.quickTo(previewEl, 'y', { duration: 0.35, ease: 'power3.out' }) as unknown as (y: number) => void;
     }
+
+    const targets = this.elRef.nativeElement.querySelectorAll('.hero-animate');
+    if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(targets, { opacity: 1, y: 0 });
+      return;
+    }
+    gsap.set(targets, { opacity: 0, y: 20 });
+    gsap.to(targets, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' });
   }
 
   ngOnDestroy() {

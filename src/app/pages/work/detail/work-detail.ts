@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -24,7 +25,8 @@ export type MediaSlide = { type: 'image'; url: string } | { type: 'video'; url: 
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'flex flex-col flex-1 select-none' },
 })
-export class WorkDetail {
+export class WorkDetail implements AfterViewInit {
+  private readonly elRef = inject(ElementRef<HTMLElement>);
   private marqueeAnimation: gsap.core.Tween | null = null;
 
   @ViewChild('marqueeTrack') set marqueeTrackRef(el: ElementRef<HTMLElement> | undefined) {
@@ -57,6 +59,16 @@ export class WorkDetail {
   });
 
   protected readonly mediaIndices = signal<Record<number, number>>({});
+
+  ngAfterViewInit() {
+    const targets = this.elRef.nativeElement.querySelectorAll('.hero-animate');
+    if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(targets, { opacity: 1, y: 0 });
+      return;
+    }
+    gsap.set(targets, { opacity: 0, y: 20 });
+    gsap.to(targets, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' });
+  }
 
   protected mediaIndex(sectionIdx: number): number {
     return this.mediaIndices()[sectionIdx] ?? 0;

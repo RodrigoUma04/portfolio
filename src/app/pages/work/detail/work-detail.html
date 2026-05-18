@@ -1,7 +1,7 @@
 @if (project(); as p) {
   <div class="px-[5dvw] lg:px-[3dvw] pt-[5dvh] pb-[10dvh]">
 
-    <div class="flex justify-end mb-10">
+    <div class="hero-animate flex justify-end mb-10">
       <a routerLink="/work" class="flex items-center gap-2 font-label text-base text-muted uppercase tracking-widest hover:text-primary transition-colors duration-150">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-5" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -10,7 +10,7 @@
       </a>
     </div>
 
-    <div class="mb-10">
+    <div class="hero-animate mb-10">
       <h1 class="font-header text-[clamp(2.75rem,7vw,6rem)] leading-[1.05] text-primary">
         {{ p.t.title }}
       </h1>
@@ -19,7 +19,7 @@
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-8 border-t border-b border-grey py-4 mb-16">
+    <div class="hero-animate flex flex-wrap gap-8 border-t border-b border-grey py-4 mb-16">
       <div class="flex flex-col gap-1">
         <span class="meta-chip">{{ 'work.meta_role' | translate }}</span>
         <span class="font-body text-sm text-primary">{{ p.t.role }}</span>
