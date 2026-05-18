@@ -9,8 +9,6 @@
   @for (item of innerRing(); track item.name) {
     <span
       class="icon-inner absolute left-1/2 top-1/2"
-      style="animation: orbit-cw 35s linear infinite"
-      [style.animationDelay]="(-$index / innerRing().length * 35) + 's'"
       [title]="item.name"
       aria-hidden="true">
       <span class="icon-bubble flex items-center justify-center bg-white rounded-full w-6 h-6 lg:w-8 lg:h-8 border border-grey/60 shadow-sm transition-transform duration-200 hover:scale-[1.05] cursor-default">
@@ -22,8 +20,6 @@
   @for (item of middleRing(); track item.name) {
     <span
       class="icon-middle absolute left-1/2 top-1/2"
-      style="animation: orbit-ccw 55s linear infinite"
-      [style.animationDelay]="(-$index / middleRing().length * 55) + 's'"
       [title]="item.name"
       aria-hidden="true">
       <span class="icon-bubble flex items-center justify-center bg-white rounded-full w-6 h-6 lg:w-8 lg:h-8 border border-grey/60 shadow-sm transition-transform duration-200 hover:scale-[1.05] cursor-default">
@@ -35,8 +31,6 @@
   @for (item of outerRing(); track item.name) {
     <span
       class="icon-outer absolute left-1/2 top-1/2"
-      style="animation: orbit-cw 75s linear infinite"
-      [style.animationDelay]="(-$index / outerRing().length * 75) + 's'"
       [title]="item.name"
       aria-hidden="true">
       <span class="icon-bubble flex items-center justify-center bg-white rounded-full w-6 h-6 lg:w-8 lg:h-8 border border-grey/60 shadow-sm transition-transform duration-200 hover:scale-[1.05] cursor-default">

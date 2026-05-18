@@ -7,6 +7,12 @@ html, body {
   overflow-x: clip;
 }
 
+@property --orbit-r {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: false;
+}
+
 @keyframes orbit-cw {
   from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg) translate(-50%, -50%); }
   to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg) translate(-50%, -50%); }
