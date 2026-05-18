@@ -1,4 +1,4 @@
-import { AfterRenderRef, ChangeDetectionStrategy, Component, ElementRef, afterEveryRender, inject, input } from '@angular/core';
+import { AfterRenderRef, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterEveryRender, inject, input } from '@angular/core';
 import gsap from 'gsap';
 import { TechItem } from '../../../services/home.service';
 
@@ -10,6 +10,7 @@ import { TechItem } from '../../../services/home.service';
 })
 export class TechOrb {
   private readonly elRef = inject(ElementRef);
+  private readonly destroyRef = inject(DestroyRef);
   outerRing = input<TechItem[]>([]);
   middleRing = input<TechItem[]>([]);
   innerRing = input<TechItem[]>([]);
@@ -35,20 +36,27 @@ export class TechOrb {
     const outerBubbles = outerSpans.map(s => s.querySelector<HTMLElement>('.icon-bubble')!);
     const allBubbles = [...innerBubbles, ...middleBubbles, ...outerBubbles];
 
-    const w = container.offsetWidth;
-
     innerSpans.forEach((s, i) => {
-      s.style.setProperty('--orbit-r', `${w * 0.18}px`);
       s.style.animation = `orbit-cw 35s ${(-i / innerSpans.length * 35).toFixed(3)}s linear infinite`;
     });
     middleSpans.forEach((s, i) => {
-      s.style.setProperty('--orbit-r', `${w * 0.34}px`);
       s.style.animation = `orbit-ccw 55s ${(-i / middleSpans.length * 55).toFixed(3)}s linear infinite`;
     });
     outerSpans.forEach((s, i) => {
-      s.style.setProperty('--orbit-r', `${w * 0.48}px`);
       s.style.animation = `orbit-cw 75s ${(-i / outerSpans.length * 75).toFixed(3)}s linear infinite`;
     });
+
+    const setRadii = () => {
+      const w = container.offsetWidth;
+      innerSpans.forEach(s => s.style.setProperty('--orbit-r', `${w * 0.18}px`));
+      middleSpans.forEach(s => s.style.setProperty('--orbit-r', `${w * 0.34}px`));
+      outerSpans.forEach(s => s.style.setProperty('--orbit-r', `${w * 0.48}px`));
+    };
+
+    setRadii();
+    const ro = new ResizeObserver(setRadii);
+    ro.observe(container);
+    this.destroyRef.onDestroy(() => ro.disconnect());
 
     if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       gsap.set([rings, ...allBubbles], { opacity: 1 });
