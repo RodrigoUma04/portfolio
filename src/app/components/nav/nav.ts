@@ -33,6 +33,7 @@ export class Nav implements AfterViewInit {
   private readonly navLinks = viewChildren<ElementRef<HTMLElement>>('navLink');
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private navigating = false;
 
   constructor() {
     afterNextRender(() => this.movePill(false));
@@ -41,7 +42,11 @@ export class Nav implements AfterViewInit {
   ngAfterViewInit(): void {
 
     const nav = this.pillRef().nativeElement.parentElement!;
-    const ro = new ResizeObserver(() => this.movePill(false));
+    const ro = new ResizeObserver(() => {
+      if (!this.navigating && !gsap.isTweening(this.pillRef().nativeElement)) {
+        this.movePill(false);
+      }
+    });
     ro.observe(nav);
     this.destroyRef.onDestroy(() => ro.disconnect());
 
@@ -50,7 +55,13 @@ export class Nav implements AfterViewInit {
         filter(e => e instanceof NavigationEnd),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe(() => setTimeout(() => this.movePill(true)));
+      .subscribe(() => {
+        this.navigating = true;
+        setTimeout(() => {
+          this.movePill(true);
+          this.navigating = false;
+        });
+      });
   }
 
   private movePill(animate: boolean): void {
