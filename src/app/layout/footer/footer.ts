@@ -5,7 +5,9 @@ import { AboutBlocksService, FactsData } from '../../services/about-blocks.servi
   selector: 'app-footer',
   templateUrl: './footer.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block' }
+  host: {
+    class: 'block select-none',
+  }
 })
 export class Footer {
   private readonly aboutBlocks = inject(AboutBlocksService);
