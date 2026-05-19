@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { LanguageService } from './language.service';
 import { TechItem } from './home.service';
+import { environment } from '../../environments/environment';
 
 export interface ProjectSection {
   label: string;
@@ -24,6 +25,7 @@ export interface Project {
   slug: string;
   type: string;
   year: string;
+  status: 'published' | 'draft';
   inProgress: boolean;
   stack: TechItem[];
   preview: string[];
@@ -56,7 +58,10 @@ export class ProjectsService {
     const data = this.allData();
     const lang = this.languageService.currentLang() as keyof Pick<Project, 'en' | 'fr' | 'nl' | 'es'>;
     if (!data) return [];
-    return data.projects.map((p, i) => ({
+    const visible = environment.showDrafts
+      ? data.projects
+      : data.projects.filter(p => p.status === 'published');
+    return visible.map((p, i) => ({
       ...p,
       tag: String(i + 1).padStart(2, '0'),
       t: p[lang] ?? p['en'],
