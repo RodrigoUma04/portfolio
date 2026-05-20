@@ -3,8 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  ViewChild,
   computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -27,15 +27,6 @@ export type MediaSlide = { type: 'image'; url: string } | { type: 'video'; url: 
 })
 export class WorkDetail implements AfterViewInit {
   private readonly elRef = inject(ElementRef<HTMLElement>);
-  private marqueeAnimation: gsap.core.Tween | null = null;
-
-  @ViewChild('marqueeTrack') set marqueeTrackRef(el: ElementRef<HTMLElement> | undefined) {
-    this.marqueeAnimation?.kill();
-    this.marqueeAnimation = null;
-    if (!el) return;
-    setTimeout(() => this.setupMarquee(el.nativeElement), 0);
-  }
-
   private readonly projectsService = inject(ProjectsService);
 
   private readonly slug = toSignal(
@@ -52,13 +43,20 @@ export class WorkDetail implements AfterViewInit {
     return all[(idx + 1) % all.length];
   });
 
-  protected readonly doubledStack = computed(() => {
-    const p = this.project();
-    if (!p) return [];
-    return [...p.stack, ...p.stack];
-  });
-
   protected readonly mediaIndices = signal<Record<number, number>>({});
+
+  constructor() {
+    effect(() => {
+      const p = this.project();
+      if (!p) return;
+      for (const section of p.t.sections) {
+        for (const url of section.media) {
+          const img = new Image();
+          img.src = url;
+        }
+      }
+    });
+  }
 
   ngAfterViewInit() {
     const targets = this.elRef.nativeElement.querySelectorAll('.hero-animate');
@@ -92,23 +90,5 @@ export class WorkDetail implements AfterViewInit {
       ...r,
       [sectionIdx]: ((r[sectionIdx] ?? 0) + 1) % total,
     }));
-  }
-
-  private setupMarquee(track: HTMLElement): void {
-    if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const halfWidth = track.scrollWidth / 2;
-    if (halfWidth <= 0) return;
-
-    gsap.set(track, { x: 0 });
-    this.marqueeAnimation = gsap.to(track, {
-      x: -halfWidth,
-      duration: 22,
-      ease: 'none',
-      repeat: -1,
-    });
-
-    track.addEventListener('mouseenter', () => this.marqueeAnimation?.pause());
-    track.addEventListener('mouseleave', () => this.marqueeAnimation?.resume());
   }
 }

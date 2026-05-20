@@ -6,7 +6,8 @@
   --muted: #5e5850;
   --highlight: #114ca8;
   --grey: #d8d2c5;
-  --hover: #ededed;
+  --hover: #f3f1f1;
+  --hover-card: #f6f4f1;
 }
 
 @theme inline {
@@ -16,6 +17,7 @@
   --color-highlight: var(--highlight);
   --color-grey: var(--grey);
   --color-hover: var(--hover);
+  --color-hover-card: var(--hover-card);
   --font-header: "Instrument Serif", serif;
   --font-label: "JetBrains Mono", monospace;
   --font-body: "Inter", sans-serif;
@@ -42,17 +44,17 @@
   .nav-pill {
     @apply
     relative flex gap-1
-    bg-white rounded-3xl p-1 h-[5dvh]
+    bg-white rounded-full p-1 h-[5dvh]
     border border-grey
     select-none;
   }
 
   .nav-indicator {
-    @apply absolute top-0 left-0 bg-primary rounded-3xl pointer-events-none opacity-0;
+    @apply absolute top-0 left-0 bg-primary rounded-full pointer-events-none opacity-0;
   }
 
   .nav-link {
-    @apply relative z-10 font-label text-primary w-full flex items-center justify-center text-[1.1rem] select-none rounded-3xl transition-colors duration-300;
+    @apply relative z-10 font-label text-primary w-full flex items-center justify-center text-[1.1rem] select-none rounded-full transition-colors duration-300;
 
     &:hover:not(.active) {
       @apply bg-hover;
@@ -97,25 +99,39 @@
 
   .work-row {
     @apply grid items-center
-      border-b border-grey
-      py-5 cursor-pointer
+      py-7 px-3 cursor-pointer rounded-lg
       transition-colors duration-200
-      hover:bg-hover;
+      hover:bg-hover-card;
+
+    .work-row-number {
+      @apply transition-colors duration-200;
+    }
+
+    .work-row-arrow {
+      @apply text-muted transition-all duration-200;
+    }
+
+    &:hover {
+      .work-row-number { @apply text-primary; }
+      .work-row-title span:first-child { @apply text-highlight italic; }
+      .work-row-arrow  { @apply translate-x-1.5 text-highlight; }
+    }
   }
 
   .stack-chip {
     @apply inline-flex items-center gap-1.5
-      font-label text-[0.62rem] text-muted
-      border border-grey rounded-full
+      bg-white rounded-full
+      font-label text-xs text-muted
+      border border-grey
       px-2 py-0.5 select-none whitespace-nowrap;
   }
 
   .meta-chip {
-    @apply font-label text-[0.68rem] text-muted uppercase tracking-widest;
+    @apply font-label text-xs text-muted uppercase tracking-widest;
   }
 
   .section-label {
-    @apply font-label text-[0.68rem] text-muted uppercase tracking-widest leading-none;
+    @apply font-header text-4xl text-primary uppercase leading-[1.05];
   }
 
   .footer-container {

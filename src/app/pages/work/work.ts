@@ -71,8 +71,8 @@ export class Work implements AfterViewInit, OnDestroy {
     gsap.set(previewEl, { autoAlpha: 0, xPercent: 0, yPercent: 0 });
 
     if (!globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      this.xTo = gsap.quickTo(previewEl, 'x', { duration: 0.35, ease: 'power3.out' }) as unknown as (x: number) => void;
-      this.yTo = gsap.quickTo(previewEl, 'y', { duration: 0.35, ease: 'power3.out' }) as unknown as (y: number) => void;
+      this.xTo = gsap.quickTo(previewEl, 'x', { duration: 0.2, ease: 'power2.out' }) as unknown as (x: number) => void;
+      this.yTo = gsap.quickTo(previewEl, 'y', { duration: 0.2, ease: 'power2.out' }) as unknown as (y: number) => void;
     }
 
     const targets = this.elRef.nativeElement.querySelectorAll('.hero-animate');
@@ -93,18 +93,28 @@ export class Work implements AfterViewInit, OnDestroy {
   }
 
   protected showPreview(project: ProjectViewModel, event: MouseEvent) {
+    if (!project.preview.length) return;
     this.previewProject.set(project);
     this.previewImageIndex.set(0);
+    const { x, y } = this.previewCoords(event);
+    gsap.set(this.previewElRef.nativeElement, { x, y });
     gsap.to(this.previewElRef.nativeElement, { autoAlpha: 1, duration: 0.18 });
-    this.movePreview(event);
     this.startCarousel(project);
   }
 
   protected movePreview(event: MouseEvent) {
     if (this.xTo && this.yTo) {
-      this.xTo(event.clientX + 24);
-      this.yTo(event.clientY + 24);
+      const { x, y } = this.previewCoords(event);
+      this.xTo(x);
+      this.yTo(y);
     }
+  }
+
+  private previewCoords(event: MouseEvent): { x: number; y: number } {
+    const previewH = 176;
+    const spaceBelow = globalThis.innerHeight - event.clientY;
+    const y = spaceBelow > previewH + 40 ? event.clientY + 24 : event.clientY - previewH - 16;
+    return { x: event.clientX + 24, y };
   }
 
   protected hidePreview() {

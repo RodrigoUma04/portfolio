@@ -36,6 +36,8 @@
     "video_fallback": "Votre navigateur ne supporte pas la lecture vidéo.",
     "media_prev": "Préc.",
     "media_next": "Suiv.",
+    "chapter": "Chapitre",
+    "in_hindsight": "En rétrospective",
     "type_consultancy": "Conseil",
     "type_personal": "Personnel",
     "type_internal_tool": "Outil interne",

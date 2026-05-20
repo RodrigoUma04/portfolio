@@ -1,7 +1,7 @@
 @if (project(); as p) {
   <div class="px-[5dvw] lg:px-[3dvw] pt-[5dvh] pb-[10dvh]">
 
-    <div class="hero-animate flex justify-end mb-10">
+    <div class="hero-animate flex justify-start mb-10">
       <a routerLink="/work" class="flex items-center gap-2 font-label text-base text-muted uppercase tracking-widest hover:text-primary transition-colors duration-150">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-5" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -12,14 +12,14 @@
 
     <div class="hero-animate mb-10">
       <h1 class="font-header text-[clamp(2.75rem,7vw,6rem)] leading-[1.05] text-primary">
-        {{ p.t.title }}
+        {{ p.t.title }}<span class="text-highlight text-[clamp(2.75rem,7vw,6rem)]">.</span>
       </h1>
-      <p class="font-body text-base leading-relaxed text-muted max-w-prose mt-5">
+      <p class="font-header text-lg lg:text-2xl text-highlight leading-relaxed w-full mt-5 text-justify">
         {{ p.t.description }}
       </p>
     </div>
 
-    <div class="hero-animate flex flex-wrap gap-8 border-t border-b border-grey py-4 mb-16">
+    <div class="hero-animate grid grid-cols-2 lg:flex lg:justify-between gap-y-5 border-t border-grey py-7">
       <div class="flex flex-col gap-1">
         <span class="meta-chip">{{ 'work.meta_role' | translate }}</span>
         <span class="font-body text-sm text-primary">{{ p.t.role }}</span>
@@ -39,33 +39,36 @@
       @if (p.inProgress) {
         <div class="flex flex-col justify-center">
           <span class="inline-flex items-center gap-1.5 font-label text-[0.6rem] uppercase tracking-widest text-highlight border border-highlight rounded-full px-3 py-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-highlight animate-pulse"></span>
+            <span class="relative flex shrink-0 size-1.5">
+              <span class="absolute inline-flex size-full rounded-full bg-highlight opacity-40 animate-ping [animation-duration:2s]"></span>
+              <span class="relative inline-flex rounded-full size-full bg-highlight"></span>
+            </span>
             {{ 'work.in_progress' | translate }}
           </span>
         </div>
       }
     </div>
 
-    <div class="space-y-20">
+    <div>
       @for (section of p.t.sections; track section.label; let si = $index) {
         @let allSlides = slides(section);
         @let currentSlide = allSlides[mediaIndex(si)];
 
-        <div
-          class="grid lg:grid-cols-[14rem_1fr] gap-6 lg:gap-12"
-          appScrollReveal [index]="si"
-        >
-          <div class="pt-1">
-            <p class="section-label">{{ section.label }}</p>
-            <hr class="border-grey mt-3">
-          </div>
+        <div class="border-t border-grey py-12" appScrollReveal [index]="si">
+          <div class="grid grid-cols-1 lg:grid-cols-[14rem_1fr] gap-x-16 gap-y-6">
 
-          <div>
-            <p class="font-body text-base leading-relaxed text-primary">{{ section.description }}</p>
+            <p class="font-label text-xs text-muted uppercase tracking-widest pt-2">
+              {{ si + 1 < 10 ? '0' : '' }}{{ si + 1 }} - {{ 'work.chapter' | translate }}
+            </p>
 
-            @if (allSlides.length > 0) {
-              <div class="mt-6">
-                <div class="rounded-xl overflow-hidden bg-grey/10 select-none">
+            <div>
+              <h2 class="font-header text-[clamp(1.75rem,4vw,3rem)] leading-tight text-primary mb-5">
+                {{ section.label }}<span class="text-highlight">.</span>
+              </h2>
+              <p class="font-body text-base leading-relaxed text-primary text-justify w-[95%]">{{ section.description }}</p>
+
+              @if (allSlides.length > 0) {
+                <div class="rounded-xl overflow-hidden bg-grey/10 select-none mt-8">
                   @if (currentSlide.type === 'image') {
                     <img
                       [src]="currentSlide.url"
@@ -90,70 +93,74 @@
                 </div>
 
                 @if (allSlides.length > 1) {
-                  <div class="flex items-center justify-between mt-3 px-0.5">
+                  <div class="flex items-center justify-between mt-5 px-0.5">
                     <button
-                      class="flex items-center gap-1.5 font-label text-xs text-muted hover:text-primary transition-colors duration-150 cursor-pointer"
+                      class="group flex items-center gap-1.5 font-label text-base text-muted hover:text-highlight transition-colors duration-150 cursor-pointer"
                       (click)="prevSlide(si, allSlides.length)"
                       [attr.aria-label]="'work.media_prev' | translate"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-3.5" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-3.5 transition-transform duration-150 group-hover:-translate-x-1" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                       </svg>
                       {{ 'work.media_prev' | translate }}
                     </button>
-                    <span class="font-label text-[0.65rem] text-muted tabular-nums">
+                    <span class="font-label text-xs text-muted tabular-nums">
                       {{ mediaIndex(si) + 1 }}&nbsp;/&nbsp;{{ allSlides.length }}
                     </span>
                     <button
-                      class="flex items-center gap-1.5 font-label text-xs text-muted hover:text-primary transition-colors duration-150 cursor-pointer"
+                      class="group flex items-center gap-1.5 font-label text-base text-muted hover:text-highlight transition-colors duration-150 cursor-pointer"
                       (click)="nextSlide(si, allSlides.length)"
                       [attr.aria-label]="'work.media_next' | translate"
                     >
                       {{ 'work.media_next' | translate }}
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-3.5" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-3.5 transition-transform duration-150 group-hover:translate-x-1" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                       </svg>
                     </button>
                   </div>
                 }
-              </div>
-            }
+              }
+            </div>
+
           </div>
         </div>
       }
     </div>
 
     @if (p.t.summary) {
-      <p class="mt-24 max-w-prose font-body text-base leading-relaxed text-muted italic" appScrollReveal>
-        {{ p.t.summary }}
-      </p>
+      <div class="border-t border-grey py-12" appScrollReveal>
+        <div class="grid grid-cols-1 lg:grid-cols-[14rem_1fr] gap-x-16 gap-y-6">
+          <p class="font-label text-xs text-muted uppercase tracking-widest pt-2">
+            {{ 'work.in_hindsight' | translate }}
+          </p>
+          <p class="font-body text-base leading-relaxed text-justify w-[95%]">{{ p.t.summary }}</p>
+        </div>
+      </div>
     }
 
     @if (p.stack.length > 0) {
-      <div class="mt-16 border-t border-grey pt-8">
+      <div class="border-t border-grey pt-8" appScrollReveal>
         <div class="mb-5">
-          <span class="font-label text-[0.65rem] text-muted uppercase tracking-widest">
+          <span class="font-label text-xs text-muted uppercase tracking-widest">
             {{ 'work.built_with' | translate: { count: p.stack.length } }}
           </span>
         </div>
 
-        <div class="overflow-hidden">
-          <div #marqueeTrack class="flex gap-6 w-max will-change-transform">
-            @for (chip of doubledStack(); track $index) {
-              <span class="stack-chip py-2 px-3">
-                <img
-                  [src]="chip.svg_url"
-                  [alt]="chip.name"
-                  width="16"
-                  height="16"
-                  class="w-4 h-4 shrink-0"
-                  draggable="false"
-                  (contextmenu)="$event.preventDefault()"
-                >
-                {{ chip.name }}
-              </span>
-            }
-          </div>
+        <div class="flex flex-wrap gap-3">
+          @for (chip of p.stack; track chip.name) {
+            <span class="stack-chip py-2 px-3">
+              <img
+                [src]="chip.svg_url"
+                [alt]="chip.name"
+                width="16"
+                height="16"
+                class="w-4 h-4 shrink-0"
+                draggable="false"
+                (contextmenu)="$event.preventDefault()"
+              >
+              {{ chip.name }}
+            </span>
+          }
         </div>
       </div>
     }
@@ -163,11 +170,11 @@
         <span class="font-label text-xs text-muted uppercase tracking-widest">{{ 'work.next_project' | translate }}</span>
         <a
           [routerLink]="['/work', next.slug]"
-          class="font-header text-[clamp(1.25rem,3vw,2rem)] text-primary hover:text-highlight transition-colors duration-200"
+          class="group font-header text-[clamp(1.25rem,3vw,2rem)] text-primary hover:text-highlight transition-colors duration-200"
         >
           <span class="flex items-center gap-3">
-            {{ next.t.title }}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-6 shrink-0" aria-hidden="true">
+            <span class="transition-all duration-200 group-hover:italic">{{ next.t.title }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-6 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
           </span>

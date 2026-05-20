@@ -36,6 +36,8 @@
     "video_fallback": "Your browser does not support video playback.",
     "media_prev": "Prev",
     "media_next": "Next",
+    "chapter": "Chapter",
+    "in_hindsight": "In hindsight",
     "type_consultancy": "Consultancy",
     "type_personal": "Personal",
     "type_internal_tool": "Internal Tool",

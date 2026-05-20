@@ -36,6 +36,8 @@
     "video_fallback": "Tu navegador no admite reproducción de vídeo.",
     "media_prev": "Anterior",
     "media_next": "Siguiente",
+    "chapter": "Capítulo",
+    "in_hindsight": "En retrospectiva",
     "type_consultancy": "Consultoría",
     "type_personal": "Personal",
     "type_internal_tool": "Herramienta interna",
