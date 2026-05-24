@@ -122,7 +122,7 @@
     >
       @if (project.preview.length > 0) {
         <img
-          [src]="project.preview[0]"
+          [src]="mobileImageSrc(project)"
           [alt]="project.t.title"
           class="w-full h-48 object-cover rounded-xl mb-4"
           draggable="false"

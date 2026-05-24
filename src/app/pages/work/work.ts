@@ -6,6 +6,7 @@ import {
   OnDestroy,
   ViewChild,
   computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -41,11 +42,24 @@ export class Work implements AfterViewInit, OnDestroy {
   protected readonly previewProject = signal<ProjectViewModel | null>(null);
   protected readonly previewImageIndex = signal(0);
 
+  protected readonly mobileImageIndices = signal<Record<string, number>>({});
+
   private xTo!: (x: number) => void;
   private yTo!: (y: number) => void;
   private carouselInterval: ReturnType<typeof setInterval> | null = null;
+  private mobileCarouselInterval: ReturnType<typeof setInterval> | null = null;
 
   protected readonly allProjects = this.projectsService.projects;
+
+  constructor() {
+    effect(() => {
+      const projects = this.allProjects();
+      if (projects.some(p => p.preview.length > 1)) {
+        this.clearMobileCarousel();
+        this.startMobileCarousel(projects);
+      }
+    });
+  }
 
   protected readonly yearGroups = computed<YearGroup[]>(() => {
     const projects = this.allProjects();
@@ -86,6 +100,7 @@ export class Work implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.clearCarousel();
+    this.clearMobileCarousel();
   }
 
   protected setFilter(f: Filter) {
@@ -139,6 +154,33 @@ export class Work implements AfterViewInit, OnDestroy {
     if (this.carouselInterval !== null) {
       clearInterval(this.carouselInterval);
       this.carouselInterval = null;
+    }
+  }
+
+  protected mobileImageSrc(project: ProjectViewModel): string {
+    if (!project.preview.length) return '';
+    const idx = this.mobileImageIndices()[project.slug] ?? 0;
+    return project.preview[idx % project.preview.length];
+  }
+
+  private startMobileCarousel(projects: ProjectViewModel[]) {
+    const withImages = projects.filter(p => p.preview.length > 1);
+    if (!withImages.length) return;
+    this.mobileCarouselInterval = setInterval(() => {
+      this.mobileImageIndices.update(indices => {
+        const next = { ...indices };
+        for (const p of withImages) {
+          next[p.slug] = ((indices[p.slug] ?? 0) + 1) % p.preview.length;
+        }
+        return next;
+      });
+    }, 3000);
+  }
+
+  private clearMobileCarousel() {
+    if (this.mobileCarouselInterval !== null) {
+      clearInterval(this.mobileCarouselInterval);
+      this.mobileCarouselInterval = null;
     }
   }
 
