@@ -68,7 +68,7 @@
               <p class="font-body text-base leading-relaxed text-primary text-justify w-[95%]">{{ section.description }}</p>
 
               @if (allSlides.length > 0) {
-                <div class="rounded-xl overflow-hidden bg-grey/10 select-none mt-8">
+                <div class="rounded-xl overflow-hidden bg-grey/10 select-none mt-8 w-full lg:w-[80%] mx-auto">
                   @if (currentSlide.type === 'image') {
                     <img
                       [src]="currentSlide.url"
@@ -93,7 +93,7 @@
                 </div>
 
                 @if (allSlides.length > 1) {
-                  <div class="flex items-center justify-between mt-5 px-0.5">
+                  <div class="flex items-center justify-between mt-5 px-0.5 mx-auto w-full lg:w-[80%]">
                     <button
                       class="group flex items-center gap-1.5 font-label text-base text-muted hover:text-highlight transition-colors duration-150 cursor-pointer"
                       (click)="prevSlide(si, allSlides.length)"
