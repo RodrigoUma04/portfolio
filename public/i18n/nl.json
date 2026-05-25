@@ -43,7 +43,8 @@
     "type_internal_tool": "Intern gereedschap",
     "type_side_project": "Zijproject",
     "type_freelance": "Freelance",
-    "type_open_source": "Open Source"
+    "type_open_source": "Open Source",
+    "type_academic": "Academisch"
   },
   "contact": {
     "hero_before": "Laten we ",

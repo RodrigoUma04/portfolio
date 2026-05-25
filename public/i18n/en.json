@@ -43,7 +43,8 @@
     "type_internal_tool": "Internal Tool",
     "type_side_project": "Side Project",
     "type_freelance": "Freelance",
-    "type_open_source": "Open Source"
+    "type_open_source": "Open Source",
+    "type_academic": "Academic"
   },
   "contact": {
     "hero_before": "Let's ",
