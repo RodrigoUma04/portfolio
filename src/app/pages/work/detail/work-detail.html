@@ -68,19 +68,19 @@
               <p class="font-body text-base leading-relaxed text-primary text-justify w-[95%]">{{ section.description }}</p>
 
               @if (allSlides.length > 0) {
-                <div class="rounded-xl overflow-hidden bg-grey/10 select-none mt-8 w-full lg:w-[80%] mx-auto">
+                <div class="rounded-xl overflow-hidden bg-grey/10 select-none mt-8 w-full lg:w-[80%] mx-auto flex justify-center">
                   @if (currentSlide.type === 'image') {
                     <img
                       [src]="currentSlide.url"
                       [alt]="section.label"
-                      class="w-full object-cover"
+                      class="max-h-[70vh] w-auto max-w-full"
                       draggable="false"
                       (contextmenu)="$event.preventDefault()"
                     >
                   }
                   @if (currentSlide.type === 'video') {
                     <video
-                      class="w-full"
+                      class="max-h-[70vh] w-auto max-w-full"
                       controls
                       controlsList="nodownload"
                       disablePictureInPicture
